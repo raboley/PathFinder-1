@@ -60,9 +60,9 @@ namespace PathFinder.Common
         /// Initializes the specified pathsize.
         /// </summary>
         /// <param name="pathsize">The pathsize.</param>
-        public void Initialize(int pathsize)
+        public void Initialize(string LogFileName)
         {
-            initialize(pathsize);
+            initialize(LogFileName);
         }
 
         /// <summary>
@@ -80,7 +80,6 @@ namespace PathFinder.Common
         /// <param name="file">The file.</param>
         public void LoadOBJfile(string file)
         {
-            Initialize(100);
             Thread.Sleep(2000);
             LoadOBJFile(file);
         }
@@ -100,10 +99,10 @@ namespace PathFinder.Common
             if (DumpingMesh == false)
             {
                 DumpingMesh = true;
-                LoadOBJFile(file);
-                Thread.Sleep(5000);
-                DumpNavMesh(file);
-                DumpingMesh = false;
+                if (DumpNavMesh(file))
+                {
+                    DumpingMesh = false;
+                }
             }
         }
 
@@ -124,9 +123,16 @@ namespace PathFinder.Common
         /// <param name="UseCustonNavMeshes">if set to <c>true</c> [use custon nav meshes].</param>
         public void FindPathToPosi(position_t start, position_t end, bool UseCustonNavMeshes)
         {
-            //set false if using DSP Nav files
+            //set false if using DSP Nav files or meshes made with PathFinder & FFXINAV.dll
             //set true if using Meshes made with Noesis map data
             findPath(start, end, UseCustonNavMeshes);
+        }
+
+        public void findClosestPath(position_t start, position_t end, bool UseCustonNavMeshes)
+        {
+            //set false if using DSP Nav files or meshes made with PathFinder & FFXINAV.dll
+            //set true if using Meshes made with Noesis map data
+            FindClosestPath(start, end, UseCustonNavMeshes);
         }
 
         /// <summary>
@@ -135,7 +141,15 @@ namespace PathFinder.Common
         /// <returns><c>true</c> if [is nav mesh enabled]; otherwise, <c>false</c>.</returns>
         public bool IsNavMeshEnabled()
         {
-            return isNavMeshEnabled();
+            if (isNavMeshEnabled() == false)
+            {
+                return false;
+            }
+            if (isNavMeshEnabled() == true)
+            {
+                return true;
+            }
+            else return false;
         }
 
         /// <summary>
@@ -145,6 +159,16 @@ namespace PathFinder.Common
         public int PathCount()
         {
             return pathpoints();
+        }
+
+        public bool findRandomPath(position_t start, float maxRadius, sbyte maxTurns, bool UseCustom)
+        {
+            return FindRandomPath(start, maxRadius, maxTurns, UseCustom);
+        }
+
+        public bool isValidPosition(position_t start, bool UseCustom)
+        {
+            return IsValidPosition(start, UseCustom);
         }
 
         /// <summary>

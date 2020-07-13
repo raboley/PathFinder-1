@@ -90,8 +90,16 @@ namespace PathFinder.Characters
             FFxiNAV = new FFXINAV();
             Points = new List<PointsOfInterest>();
             Tasks = new Tasks(this);
-
             CreateFolders();
+            string ConfigPath = string.Format("{0}\\Log Configs\\Default_Config.conf", Application.StartupPath);
+            try
+            {
+                FFxiNAV.Initialize(ConfigPath);
+            }
+            catch (Exception ex)
+            {
+                Logger.AddDebugText(tc.rtbDebug, ex.ToString());
+            }
         }
 
         /// <summary>
@@ -110,7 +118,7 @@ namespace PathFinder.Characters
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
 
-                foreach (var zn in Tasks.NavTask.Options.Zones)
+                foreach (var zn in Tasks.RandomPathTask.Options.Zones)
                 {
                     Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Exporting {0} ID= {1}", zn.name, zn.id.ToString()));
                     string str = zn.path.Replace(@"\", @"/");
@@ -148,7 +156,7 @@ namespace PathFinder.Characters
         {
             try
             {
-                foreach (var zn in Tasks.NavTask.Options.Zones)
+                foreach (var zn in Tasks.RandomPathTask.Options.Zones)
                 {
                     if (zn.name == name)
                     {
@@ -218,10 +226,6 @@ namespace PathFinder.Characters
         /// </summary>
         public void CreateFolders()
         {
-            if (!System.IO.Directory.Exists(string.Format(@"Documents\NavMeshes")))
-            {
-                System.IO.Directory.CreateDirectory(string.Format(@"Documents\NavMeshes"));
-            }
             if (!System.IO.Directory.Exists(string.Format(@"Documents\{0}\ChatLog", Api.Player.Name)))
             {
                 System.IO.Directory.CreateDirectory(string.Format(@"Documents\{0}\ChatLog", Api.Player.Name));
@@ -241,6 +245,32 @@ namespace PathFinder.Characters
             if (!System.IO.Directory.Exists(string.Format(@"Documents\{0}\Config", Api.Player.Name)))
             {
                 System.IO.Directory.CreateDirectory(string.Format(@"Documents\{0}\Config", Api.Player.Name));
+            }
+            if (!System.IO.Directory.Exists(string.Format("{0}\\Log Configs", Application.StartupPath)))
+            {
+                System.IO.Directory.CreateDirectory(string.Format("{0}\\Log Configs", Application.StartupPath));
+            }
+            if (!System.IO.Directory.Exists(string.Format("{0}\\Logs", Application.StartupPath)))
+            {
+                System.IO.Directory.CreateDirectory(string.Format("{0}\\Logs", Application.StartupPath));
+            }
+
+            string ConfigPath = string.Format("{0}\\Log Configs\\Default_Config.conf", Application.StartupPath);
+            if (!System.IO.Directory.Exists(ConfigPath))
+            {
+                using (StreamWriter sw = File.CreateText(ConfigPath))
+                {
+                    sw.WriteLine("* GLOBAL:");
+                    sw.WriteLine(" FORMAT                  =   \"%datetime | %level | %logger | %msg\"");
+                    sw.WriteLine(" FILENAME                =  \"Logs\\FFXINAV-Info.log\"");
+                    sw.WriteLine(" ENABLED                 =   true");
+                    sw.WriteLine(" TO_FILE                 =   true");
+                    sw.WriteLine(" TO_STANDARD_OUTPUT      =   true");
+                    sw.WriteLine(" SUBSECOND_PRECISION     =   3");
+                    sw.WriteLine(" PERFORMANCE_TRACKING    =   false");
+                    sw.WriteLine(" MAX_LOG_FILE_SIZE       =   2097152 ## Throw log files away after 2MB");
+                    sw.Dispose();
+                }
             }
         }
 
@@ -312,7 +342,7 @@ namespace PathFinder.Characters
                         Filename = SaveDialog.FileName;
                     else
                         Filename = SaveDialog.FileName + ".xml";
-                    XmlSerializationHelper.Serialize(Filename, Tasks.NavTask.Options.Points);
+                    XmlSerializationHelper.Serialize(Filename, Tasks.RandomPathTask.Options.Points);
                 }
                 SaveDialog.Dispose();
             }
@@ -354,7 +384,10 @@ namespace PathFinder.Characters
                     }
 
                     Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Added {0} Points of interest", Tasks.NavTask.Options.Points.Count.ToString()));
-                    Tc.PointsComboBox.SelectedIndex = 0;
+                    if (Tc.PointsComboBox.Items.Count > 0)
+                    {
+                        Tc.PointsComboBox.SelectedIndex = 0;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -375,18 +408,18 @@ namespace PathFinder.Characters
 
             if (OpenDialog.ShowDialog() == DialogResult.OK)
             {
-                Tasks.NavTask.Options.Zones.Clear();
+                Tasks.RandomPathTask.Options.Zones.Clear();
 
                 string ZoneFilename = OpenDialog.FileName;
                 Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Nav file loaded = {0}", ZoneFilename));
                 try
                 {
-                    Tasks.NavTask.Options.Zones = XmlSerializationHelper.Deserialize<List<Zones>>(ZoneFilename) ?? new List<Zones>();
+                    Tasks.RandomPathTask.Options.Zones = XmlSerializationHelper.Deserialize<List<Zones>>(ZoneFilename) ?? new List<Zones>();
 
                     OpenDialog.Dispose();
 
-                    Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Added {0} Zones", Tasks.NavTask.Options.Zones.Count.ToString()));
-                    foreach (var item in Tasks.NavTask.Options.Zones)
+                    Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Added {0} Zones", Tasks.RandomPathTask.Options.Zones.Count.ToString()));
+                    foreach (var item in Tasks.RandomPathTask.Options.Zones)
                     {
                         Tc.mapLB.Items.Add(item.name);
                     }
@@ -413,7 +446,6 @@ namespace PathFinder.Characters
                 if (OpenDialog.ShowDialog() == DialogResult.OK)
                 {
                     string path = OpenDialog.FileName;
-                    FFxiNAV.Initialize(100);
                     FFxiNAV.Load(path);
                     Logger.AddDebugText(Tc.rtbDebug, string.Format(@"NavMesh initialized, File Loaded = {0}", path));
                 }

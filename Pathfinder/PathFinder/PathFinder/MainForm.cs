@@ -204,5 +204,9 @@ namespace PathFinder
             else
                 MainForm.ActiveForm.Opacity = 1;
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

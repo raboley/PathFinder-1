@@ -12,6 +12,7 @@
 // ***********************************************************************
 using PathFinder.Contracts;
 using PathFinder.Tasks.Nav;
+using PathFinder.Tasks.Random;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +36,8 @@ namespace PathFinder.Characters
         /// Gets the nav task.
         /// </summary>
         /// <value>The nav task.</value>
+        public RandomPathTask RandomPathTask { get; private set; }
+
         public NavTask NavTask { get; private set; }
 
         /// <summary>
@@ -96,6 +99,7 @@ namespace PathFinder.Characters
         {
             TaskList = new List<ITask>
             {
+                (RandomPathTask = new RandomPathTask(Character)),
                 (NavTask = new NavTask(Character)),
             };
         }

@@ -80,10 +80,10 @@ namespace PathFinder.Characters
         /// <returns>System.Int32.</returns>
         public int FindBestTarget()
         {
-            if (Character.Tasks.NavTask.Options.Targets.Count > 0)
+            if (Character.Tasks.RandomPathTask.Options.Targets.Count > 0)
             {
                 var index = Enumerable.Range(0, 768)
-                                 .Where(i => IsRendered(i) && IsAttackable(Character.Tasks.NavTask.Options.Targets, i, Character.Tasks.NavTask.Options.SearchDistance))
+                                 .Where(i => IsRendered(i) && IsAttackable(Character.Tasks.RandomPathTask.Options.Targets, i, Character.Tasks.RandomPathTask.Options.SearchDistance))
                                  .OrderBy(i => Character.Api.Entity.GetEntity(i).Distance)
                                  .Select(i => i).FirstOrDefault();
 
@@ -197,7 +197,7 @@ namespace PathFinder.Characters
                        && IsAggro(mobIndex)
                        && !IsClaimedBySomeoneElse(mobIndex)
                        && Character.Api.Entity.GetEntity(mobIndex).Status != (uint)EntityStatus.Dead || Character.Api.Entity.GetEntity(mobIndex).Status != (uint)EntityStatus.DeadEngaged
-                       && Character.Api.Entity.GetEntity(mobIndex).Distance < Character.Tasks.NavTask.Options.SearchDistance
+                       && Character.Api.Entity.GetEntity(mobIndex).Distance < Character.Tasks.RandomPathTask.Options.SearchDistance
                        && Character.Api.Entity.GetEntity(mobIndex).HealthPercent != 0;
             }
 

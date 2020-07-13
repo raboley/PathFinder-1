@@ -112,26 +112,23 @@ namespace PathFinder
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void PointsComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Character.Tasks.NavTask.Options.Points.Count > 0)
+            SelectedPoint = PointsComboBox.SelectedItem.ToString();
+            Character.Api.AutoFollow.IsAutoFollowing = false;
+            Character.FFxiNAV.Waypoints.Clear();
+            Character.Tasks.NavTask.Options.WayPoints.Clear();
+            foreach (var item in Character.Tasks.NavTask.Options.Points)
             {
-                SelectedPoint = PointsComboBox.SelectedItem.ToString();
-                Character.Api.AutoFollow.IsAutoFollowing = false;
-                Character.FFxiNAV.Waypoints.Clear();
-                Character.Tasks.NavTask.Options.WayPoints.Clear();
-                foreach (var item in Character.Tasks.NavTask.Options.Points)
+                if (item.ID == Character.Api.Player.ZoneId && item.Name == SelectedPoint)
                 {
-                    if (item.ID == Character.Api.Player.ZoneId && item.Name == SelectedPoint)
-                    {
-                        Character.Logger.AddDebugText(rtbDebug, string.Format(@"Point Set {0} x = {1} z = {2}",
-                        item.Name, item.X.ToString(), item.Z.ToString()));
-                        Character.Tasks.NavTask.Options.KeepMovingStartPosi.X = Character.Api.Player.X;
-                        Character.Tasks.NavTask.Options.KeepMovingStartPosi.Y = Character.Api.Player.Y;
-                        Character.Tasks.NavTask.Options.KeepMovingStartPosi.Z = Character.Api.Player.Z;
-                        Character.Tasks.NavTask.Options.Posi.X = item.X;
-                        Character.Tasks.NavTask.Options.Posi.Y = item.Y;
-                        Character.Tasks.NavTask.Options.Posi.Z = item.Z;
-                        SelectedPoint = item.Name;
-                    }
+                    Character.Logger.AddDebugText(rtbDebug, string.Format(@"Point Set {0} x = {1} z = {2}",
+                    item.Name, item.X.ToString(), item.Z.ToString()));
+                    Character.Tasks.NavTask.Options.KeepMovingStartPosi.X = Character.Api.Player.X;
+                    Character.Tasks.NavTask.Options.KeepMovingStartPosi.Y = Character.Api.Player.Y;
+                    Character.Tasks.NavTask.Options.KeepMovingStartPosi.Z = Character.Api.Player.Z;
+                    Character.Tasks.NavTask.Options.Posi.X = item.X;
+                    Character.Tasks.NavTask.Options.Posi.Y = item.Y;
+                    Character.Tasks.NavTask.Options.Posi.Z = item.Z;
+                    SelectedPoint = item.Name;
                 }
             }
         }
@@ -320,6 +317,16 @@ namespace PathFinder
                     OldString = Character.FFxiNAV.GetErrorMessage();
                 }
                 if (Character.FFxiNAV.Waypoints.Count > 0 && Character.Tasks.NavTask.IsBusy)
+                {
+                    var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+                    NewMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
+                    if (OldMeshEdgeDistance != NewMeshEdgeDistance)
+                    {
+                        OldMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
+                        Character.Logger.AddDebugText(this.rtbDebug, string.Format(@"Player Distance from NavMesh Edge = {0}", OldMeshEdgeDistance.ToString()));
+                    }
+                }
+                if (Character.FFxiNAV.Waypoints.Count > 0 && Character.Tasks.RandomPathTask.IsBusy)
                 {
                     var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
                     NewMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
@@ -811,6 +818,111 @@ namespace PathFinder
         private void button6_Click(object sender, EventArgs e)
         {
             Character.FFxiNAV.Unload();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var test = new position_t { X = 99999, Y = 9999, Z = 9999, Moving = 0, Rotation = 0 };
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh Test = {0}", Character.FFxiNAV.isValidPosition(test, false).ToString()));
+            var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh PlayerPos = {0}", Character.FFxiNAV.isValidPosition(PlayerPos, false).ToString()));
+        }
+
+        private void button16_Click_1(object sender, EventArgs e)
+        {
+            var test = new position_t { X = 99999, Y = 9999, Z = 9999, Moving = 0, Rotation = 0 };
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh Test = {0}", Character.FFxiNAV.isValidPosition(test, false).ToString()));
+            var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh PlayerPos = {0}", Character.FFxiNAV.isValidPosition(PlayerPos, false).ToString()));
+        }
+
+        private void button12_Click_1(object sender, EventArgs e)
+        {
+            Character.LoadNavMesh();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"NavMesh is enabled = {0}", Character.Tasks.NavTask.FFxiNav.IsNavMeshEnabled().ToString()));
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Character.FFxiNAV.Unload();
+        }
+
+        private void RandomRunBtn_Click(object sender, EventArgs e)
+        {
+            if (RandomRunBtn.Text == "Start" && !Character.Tasks.RandomPathTask.IsBusy)
+            {
+                RandomRunBtn.Text = "Stop";
+                Thread.Sleep(100);
+                Character.Tasks.RandomPathTask.Start();
+                Character.Tasks.RandomPathTask.Options.StopRunning = false;
+            }
+            else if (RandomRunBtn.Text == "Stop")
+            {
+                Character.Tasks.RandomPathTask.Stop();
+                Character.Navi.Reset();
+                Character.Tasks.Stop();
+                Character.FFxiNAV.Waypoints.Clear();
+                Character.Tasks.RandomPathTask.Options.WayPoints.Clear();
+                Character.Tasks.RandomPathTask.Options.StopRunning = true;
+                Character.Api.AutoFollow.IsAutoFollowing = false;
+                // Character.Api.AutoFollow.SetAutoFollowCoords(0, 0, 0);
+                RandomRunBtn.Text = "Start";
+                Thread.Sleep(200);
+                Character.Navi.Reset();
+            }
+            else if (RandomRunBtn.Text == "Start" && Character.Tasks.RandomPathTask.IsBusy)
+            {
+                RandomRunBtn.Text = "Stop";
+                Thread.Sleep(100);
+                Character.Tasks.RandomPathTask.Stop();
+                Character.Tasks.Stop();
+                Character.Api.AutoFollow.SetAutoFollowCoords(0, 0, 0);
+                Character.FFxiNAV.Waypoints.Clear();
+                Character.Tasks.RandomPathTask.Options.WayPoints.Clear();
+                Character.Tasks.RandomPathTask.Options.StopRunning = true;
+                Character.Api.AutoFollow.IsAutoFollowing = false;
+                Character.Logger.AddDebugText(rtbDebug, "NavTask is busy. attempting to stop");
+            }
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            var start = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+            //this is just a test. the end location can be anywhere.
+            var end = new position_t { X = Character.Api.Player.X + 2, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z + 2, Moving = 0, Rotation = 0 };
+            Character.FFxiNAV.findClosestPath(start, end, false);
+            if (Character.FFxiNAV.PathCount() > 0)
+            {
+                Character.Logger.AddDebugText(rtbDebug, string.Format(@"We found a path, waypoint count = {0}", Character.FFxiNAV.PathCount().ToString()));
+            }
+            if (Character.FFxiNAV.PathCount() == 0)
+            {
+                Character.Logger.AddDebugText(rtbDebug, string.Format(@"No Path was found"));
+            }
+        }
+
+        private void button17_Click_1(object sender, EventArgs e)
+        {
+            var start = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+            //this is just a test. the end location can be anywhere.
+            var end = new position_t { X = Character.Api.Player.X - 3, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z - 3, Moving = 0, Rotation = 0 };
+
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"Rotation = {0}", Character.FFxiNAV.Getrotation(start, end).ToString()));
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            // position_t start, float maxRadius, sbyte maxTurns, bool UseCustom)
+            var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
+            float Distance = 100;
+            sbyte Turns = 30;
+            bool UseCustom = false; // set true if you are using meshes made with geometry data from Noesis
+            bool RandomPathFound = Character.FFxiNAV.findRandomPath(PlayerPos, Distance, Turns, UseCustom);
+            Character.Logger.AddDebugText(rtbDebug, string.Format(@"Did we find a random path = {0}", RandomPathFound.ToString()));
         }
     }
 }

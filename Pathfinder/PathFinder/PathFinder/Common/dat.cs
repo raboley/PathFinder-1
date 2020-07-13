@@ -1,7 +1,7 @@
 ﻿// *********************************************************************** Assembly : PathFinder
-// Author : vulture Created : 04-10-2020 Created : 04-10-2020 Created : 04-10-2020 Created : 04-10-2020
+// Author : vulture Created : 04-10-2020
 //
-// Last Modified By : xenonsmurf Last Modified On : 04-12-2020 Last Modified On : 07-04-2020 ***********************************************************************
+// Last Modified By : xenonsmurf Last Modified On : 04-12-2020 ***********************************************************************
 // <copyright file="dat.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PathFinder.Common
@@ -293,16 +294,12 @@ namespace PathFinder.Common
         /// <value>The s.</value>
         public FileStream s { get; set; }
 
-        /// <summary>
-        /// Gets or sets the br.
-        /// </summary>
-        /// <value>The br.</value>
         public BinaryReader br { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DAT"/> class.
         /// </summary>
-        /// <param name="s">The s.</param>
+        /// <param name="args">The arguments.</param>
         public DAT(Stream s)
         {
             Chunks.Clear();
@@ -342,7 +339,7 @@ namespace PathFinder.Common
         /// <param name="data">The data.</param>
         /// <param name="pos">The position.</param>
         /// <returns>System.Int32.</returns>
-        public int ParseMapIDStruct(byte[] data, int pos)
+        public static int ParseMapIDStruct(byte[] data, int pos)
         {
             float[] f = new float[0x29];
 
@@ -443,12 +440,12 @@ namespace PathFinder.Common
         /// <summary>
         /// The byte cover
         /// </summary>
-        public Dictionary<int, int> ByteCover = new Dictionary<int, int>();
+        public static Dictionary<int, int> ByteCover = new Dictionary<int, int>();
 
         /// <summary>
         /// The byte cover name
         /// </summary>
-        public Dictionary<int, string> ByteCoverName = new Dictionary<int, string>();
+        public static Dictionary<int, string> ByteCoverName = new Dictionary<int, string>();
 
         /// <summary>
         /// Adds the byte cover.
@@ -456,7 +453,7 @@ namespace PathFinder.Common
         /// <param name="name">The name.</param>
         /// <param name="pos">The position.</param>
         /// <param name="length">The length.</param>
-        public void AddByteCover(string name, int pos, int length)
+        public static void AddByteCover(string name, int pos, int length)
         {
             ByteCover[pos] = length;
             ByteCoverName[pos] = name;
@@ -465,7 +462,7 @@ namespace PathFinder.Common
         /// <summary>
         /// Prints the byte cover.
         /// </summary>
-        public void PrintByteCover()
+        public static void PrintByteCover()
         {
             string lastname = "";
             int lastpos = 0;
@@ -577,8 +574,8 @@ namespace PathFinder.Common
             // map
 
             int meshoffset = BitConverter.ToInt32(c.data, 8);           // stores info about the collision mesh
-            int gridwidth = 20 * c.data[0x0c];  // stored div 10
-            int gridheight = 20 * c.data[0x0d];
+            int gridwidth = 10 * c.data[0x0c];  // stored div 10
+            int gridheight = 10 * c.data[0x0d];
             int bucketwidth = c.data[0x0e];     // almost always 40?
             int bucketheight = c.data[0x0f];    // stored mul 10; so 40 = 4 yalms; probably baked in so gridwidth*bucketwidth = mapwidth
             int quadtreeoffset = BitConverter.ToInt32(c.data, 0x10);
@@ -620,25 +617,17 @@ namespace PathFinder.Common
 
             // this loop populates global AllVertices AllNormals AllTriangles (sorry for statics; if you plan on using this for more than one map at a time, rewrite to be less staticy)
             //Console.WriteLine("grid:");
-            try
+            for (int y = 0; y < gridheight; y++)
             {
-                int offs = 0;
-                int entryoffs = 0;
-                for (int y = 0; y < gridheight; y++)
+                for (int x = 0; x < gridwidth; x++)
                 {
-                    for (int x = 0; x < gridwidth; x++)
-                    {
-                        offs = (y * gridwidth + x) * 4;
-                        entryoffs = BitConverter.ToInt32(c.data, gridoffset + offs);
-                        if (entryoffs != 0 && entryoffs! < 0) ParseGridEntry(c.data, entryoffs, x, y);
-                        AddByteCover("grid", gridoffset + offs, 4);
-                    }
+                    int offs = (y * gridwidth + x) * 4;
+                    int entryoffs = BitConverter.ToInt32(c.data, gridoffset + offs);
+                    if (entryoffs != 0) ParseGridEntry(c.data, entryoffs, x, y);
+                    AddByteCover("grid", gridoffset + offs, 4);
                 }
             }
-            catch (Exception ex)
-            {
-                Char.Logger.AddDebugText(Char.Tc.rtbDebug, ex.ToString());
-            }
+
 #if WRITE_COLLISION_MESH_TO_DISK
             // write out the collision mesh in some format
             using (var sw = new StreamWriter(string.Format(@"Map Collision obj\{0}.obj", FileName)))
@@ -710,31 +699,38 @@ namespace PathFinder.Common
         /// <param name="y">The y.</param>
         private void ParseGridEntry(byte[] data, int entryoffs, int x, int y)
         {
-            var entries = new List<int>();
-            while (true)
+            try
             {
-                int c = BitConverter.ToInt32(data, entryoffs);
-                AddByteCover("gridlist", entryoffs, 4);
-                if (c == 0) break;
-                entries.Add(c);
-                entryoffs += 4;
+                var entries = new List<int>();
+                while (true)
+                {
+                    int c = BitConverter.ToInt32(data, entryoffs);
+                    AddByteCover("gridlist", entryoffs, 4);
+                    if (c == 0) break;
+                    entries.Add(c);
+                    entryoffs += 4;
+                }
+
+                uint pos = (uint)entries[0];
+                int xx = (int)((pos >> 14) & 0x1ff);
+                int yy = (int)((pos >> 23) & 0x1ff);
+                int flags = (int)(pos & 0x3fff);
+
+                //Console.Write("{0} [{1}] : {2},{3} :", entryoffs.ToString("x8"), flags.ToString(), x.ToString(), y.ToString());
+                for (int i = 1; i < entries.Count; i += 2)
+                {
+                    ////Console.Write(" {0}", entries[i].ToString("x8"));
+                    int visentryoffset = entries[i + 0];        // points to a raw transformation matrix[4][4]
+                    int geometryoffset = entries[i + 1];        // mesh data
+
+                    ParseGridMesh(data, x, y, visentryoffset, geometryoffset);
+                }
+                //Console.WriteLine();
             }
-
-            uint pos = (uint)entries[0];
-            int xx = (int)((pos >> 14) & 0x1ff);
-            int yy = (int)((pos >> 23) & 0x1ff);
-            int flags = (int)(pos & 0x3fff);
-
-            //Console.Write("{0} [{1}] : {2},{3} :", entryoffs.ToString("x8"), flags.ToString(), x.ToString(), y.ToString());
-            for (int i = 1; i < entries.Count; i += 2)
+            catch (Exception ex)
             {
-                ////Console.Write(" {0}", entries[i].ToString("x8"));
-                int visentryoffset = entries[i + 0];        // points to a raw transformation matrix[4][4]
-                int geometryoffset = entries[i + 1];        // mesh data
-
-                ParseGridMesh(data, x, y, visentryoffset, geometryoffset);
+                Char.Logger.AddDebugText(Char.Tc.rtbDebug, ex.ToString());
             }
-            //Console.WriteLine();
         }
 
         /// <summary>
@@ -983,14 +979,25 @@ namespace PathFinder.Common
         /// <returns>System.Int32.</returns>
         private int ParseMesh(byte[] data, int pos)
         {
-            //Console.WriteLine("{0} out of {1}", pos, data.Count());;
-            int vertices = BitConverter.ToInt32(data, pos + 0x00);
-            int normals = BitConverter.ToInt32(data, pos + 0x04);
-            int tris = BitConverter.ToInt32(data, pos + 0x08);
-            int tricount = BitConverter.ToInt16(data, pos + 0x0c);
-            int unk2 = BitConverter.ToInt16(data, pos + 0x0e);
-            ////Console.WriteLine(" {0} {1} {2} {3} {4}", vertices.ToString("x8"), normals.ToString("x8"), tris.ToString("x8"), tricount.ToString("x4"), unk2.ToString("x4"));
-            return tris + tricount * 2 * 4;
+            try
+            {
+                // Char.Logger.AddDebugText(Char.Tc.rtbDebug, string.Format(@"{0} out of {1}",
+                // pos.ToString(), data.Count().ToString())); ;
+
+                int vertices = BitConverter.ToInt32(data, pos + 0x00);
+                int normals = BitConverter.ToInt32(data, pos + 0x04);
+                int tris = BitConverter.ToInt32(data, pos + 0x08);
+                int tricount = BitConverter.ToInt16(data, pos + 0x0c);
+                int unk2 = BitConverter.ToInt16(data, pos + 0x0e);
+                ////Console.WriteLine(" {0} {1} {2} {3} {4}", vertices.ToString("x8"), normals.ToString("x8"), tris.ToString("x8"), tricount.ToString("x4"), unk2.ToString("x4"));
+
+                return tris + tricount * 2 * 4;
+            }
+            catch (Exception ex)
+            {
+                Char.Logger.AddDebugText(Char.Tc.rtbDebug, ex.ToString());
+                return 0;
+            }
         }
 
         /// <summary>

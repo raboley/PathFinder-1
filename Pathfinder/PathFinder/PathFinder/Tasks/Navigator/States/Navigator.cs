@@ -163,8 +163,8 @@ namespace PathFinder.Tasks.Nav.States
                     }
                 }
                 else
-
-                    Character.Api.AutoFollow.IsAutoFollowing = false;
+                    Character.FFxiNAV.Waypoints.Clear();
+                Character.Api.AutoFollow.IsAutoFollowing = false;
                 Exit();
             }
             catch (Exception ex)

@@ -41,10 +41,7 @@ namespace PathFinder
 
         #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
+        /// <exclude />
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -66,6 +63,24 @@ namespace PathFinder
             this.loadHitPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveHitPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.TurnsTB = new System.Windows.Forms.TextBox();
+            this.DistanceTB = new System.Windows.Forms.TextBox();
+            this.RandomRunBtn = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.button18 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -117,6 +132,8 @@ namespace PathFinder
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -126,7 +143,7 @@ namespace PathFinder
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 500;
+            this.timer.Interval = 2000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // tabPage7
@@ -290,6 +307,8 @@ namespace PathFinder
             // tabControl2
             // 
             this.tabControl2.Controls.Add(this.tabPage7);
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -298,6 +317,200 @@ namespace PathFinder
             this.tabControl2.SelectedIndex = 0;
             this.tabControl2.Size = new System.Drawing.Size(800, 280);
             this.tabControl2.TabIndex = 26;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label25);
+            this.tabPage3.Controls.Add(this.label24);
+            this.tabPage3.Controls.Add(this.TurnsTB);
+            this.tabPage3.Controls.Add(this.DistanceTB);
+            this.tabPage3.Controls.Add(this.RandomRunBtn);
+            this.tabPage3.Controls.Add(this.button10);
+            this.tabPage3.Controls.Add(this.button11);
+            this.tabPage3.Controls.Add(this.button12);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(792, 254);
+            this.tabPage3.TabIndex = 7;
+            this.tabPage3.Text = "Random Path Test";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(27, 49);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(46, 13);
+            this.label25.TabIndex = 42;
+            this.label25.Text = "Turns = ";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(27, 23);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(58, 13);
+            this.label24.TabIndex = 41;
+            this.label24.Text = "Distance =";
+            // 
+            // TurnsTB
+            // 
+            this.TurnsTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TurnsTB.ForeColor = System.Drawing.Color.Black;
+            this.TurnsTB.Location = new System.Drawing.Point(91, 46);
+            this.TurnsTB.MaxLength = 6;
+            this.TurnsTB.Name = "TurnsTB";
+            this.TurnsTB.Size = new System.Drawing.Size(46, 20);
+            this.TurnsTB.TabIndex = 40;
+            this.TurnsTB.Text = "100";
+            this.TurnsTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // DistanceTB
+            // 
+            this.DistanceTB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DistanceTB.ForeColor = System.Drawing.Color.Black;
+            this.DistanceTB.Location = new System.Drawing.Point(91, 20);
+            this.DistanceTB.MaxLength = 6;
+            this.DistanceTB.Name = "DistanceTB";
+            this.DistanceTB.Size = new System.Drawing.Size(46, 20);
+            this.DistanceTB.TabIndex = 39;
+            this.DistanceTB.Text = "500";
+            this.DistanceTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // RandomRunBtn
+            // 
+            this.RandomRunBtn.Location = new System.Drawing.Point(30, 87);
+            this.RandomRunBtn.Name = "RandomRunBtn";
+            this.RandomRunBtn.Size = new System.Drawing.Size(75, 23);
+            this.RandomRunBtn.TabIndex = 38;
+            this.RandomRunBtn.Text = "Start";
+            this.RandomRunBtn.UseVisualStyleBackColor = true;
+            this.RandomRunBtn.Click += new System.EventHandler(this.RandomRunBtn_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(15, 206);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(154, 23);
+            this.button10.TabIndex = 37;
+            this.button10.Text = "Unload Mesh";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(15, 177);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(154, 23);
+            this.button11.TabIndex = 36;
+            this.button11.Text = "Is navmesh enabled?";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(15, 148);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(154, 23);
+            this.button12.TabIndex = 35;
+            this.button12.Text = "Load Mesh file";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click_1);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label30);
+            this.tabPage4.Controls.Add(this.label29);
+            this.tabPage4.Controls.Add(this.button18);
+            this.tabPage4.Controls.Add(this.button17);
+            this.tabPage4.Controls.Add(this.label28);
+            this.tabPage4.Controls.Add(this.label27);
+            this.tabPage4.Controls.Add(this.button7);
+            this.tabPage4.Controls.Add(this.button16);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(792, 254);
+            this.tabPage4.TabIndex = 8;
+            this.tabPage4.Text = "Misc";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(172, 81);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(197, 13);
+            this.label30.TabIndex = 46;
+            this.label30.Text = "<- Gets rotation from Point A and Point B";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(172, 110);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(128, 13);
+            this.label29.TabIndex = 45;
+            this.label29.Text = "<- Click to test, not to run ";
+            // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(7, 105);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(151, 23);
+            this.button18.TabIndex = 44;
+            this.button18.Text = "Find Random Path Test";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
+            // button17
+            // 
+            this.button17.Location = new System.Drawing.Point(7, 76);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(150, 23);
+            this.button17.TabIndex = 38;
+            this.button17.Text = "Get Rotation";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click_1);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(172, 51);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(383, 13);
+            this.label28.TabIndex = 37;
+            this.label28.Text = "<- Same as FindPath but this prevents exploits with navmesh / impassible terrain";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(172, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(196, 13);
+            this.label27.TabIndex = 36;
+            this.label27.Text = "<- check if Position is valid on the mesh.";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(7, 46);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(150, 23);
+            this.button7.TabIndex = 35;
+            this.button7.Text = "Find Closest Path";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(6, 16);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(151, 23);
+            this.button16.TabIndex = 34;
+            this.button16.Text = "Is Valid Position";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click_1);
             // 
             // tabPage1
             // 
@@ -877,6 +1090,10 @@ namespace PathFinder
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
@@ -987,85 +1204,13 @@ namespace PathFinder
         /// </summary>
         public System.Windows.Forms.Button button1;
         /// <summary>
-        /// The button2
-        /// </summary>
-        private System.Windows.Forms.Button button2;
-        /// <summary>
         /// The label2
         /// </summary>
         public System.Windows.Forms.Label label2;
         /// <summary>
-        /// The tab page2
-        /// </summary>
-        private System.Windows.Forms.TabPage tabPage2;
-        /// <summary>
-        /// The button3
-        /// </summary>
-        private System.Windows.Forms.Button button3;
-        /// <summary>
-        /// The button4
-        /// </summary>
-        private System.Windows.Forms.Button button4;
-        /// <summary>
         /// The label3
         /// </summary>
         public System.Windows.Forms.Label label3;
-        /// <summary>
-        /// The label6
-        /// </summary>
-        private System.Windows.Forms.Label label6;
-        /// <summary>
-        /// The label5
-        /// </summary>
-        private System.Windows.Forms.Label label5;
-        /// <summary>
-        /// The label4
-        /// </summary>
-        private System.Windows.Forms.Label label4;
-        /// <summary>
-        /// The artb
-        /// </summary>
-        private System.Windows.Forms.TextBox ARTB;
-        /// <summary>
-        /// The ahtb
-        /// </summary>
-        private System.Windows.Forms.TextBox AHTB;
-        /// <summary>
-        /// The CHTB
-        /// </summary>
-        private System.Windows.Forms.TextBox CHTB;
-        /// <summary>
-        /// The CSTB
-        /// </summary>
-        private System.Windows.Forms.TextBox CSTB;
-        /// <summary>
-        /// The label11
-        /// </summary>
-        private System.Windows.Forms.Label label11;
-        /// <summary>
-        /// The label10
-        /// </summary>
-        private System.Windows.Forms.Label label10;
-        /// <summary>
-        /// The label8
-        /// </summary>
-        private System.Windows.Forms.Label label8;
-        /// <summary>
-        /// The label7
-        /// </summary>
-        private System.Windows.Forms.Label label7;
-        /// <summary>
-        /// The TSTB
-        /// </summary>
-        private System.Windows.Forms.TextBox TSTB;
-        /// <summary>
-        /// The MSTB
-        /// </summary>
-        private System.Windows.Forms.TextBox MSTB;
-        /// <summary>
-        /// The MCTB
-        /// </summary>
-        private System.Windows.Forms.TextBox MCTB;
         /// <summary>
         /// The label12
         /// </summary>
@@ -1074,81 +1219,60 @@ namespace PathFinder
         /// The label16
         /// </summary>
         public System.Windows.Forms.Label label16;
-        /// <summary>
-        /// The button5
-        /// </summary>
-        private System.Windows.Forms.Button button5;
-        /// <summary>
-        /// The label17
-        /// </summary>
-        private System.Windows.Forms.Label label17;
-        /// <summary>
-        /// The dump meshes
-        /// </summary>
-        private System.ComponentModel.BackgroundWorker DumpMeshes;
-        /// <summary>
-        /// The button6
-        /// </summary>
-        private System.Windows.Forms.Button button6;
-        /// <summary>
-        /// The group box1
-        /// </summary>
-        private System.Windows.Forms.GroupBox groupBox1;
-        /// <summary>
-        /// The ds m
-        /// </summary>
-        private System.Windows.Forms.TextBox DsM;
-        /// <summary>
-        /// The label23
-        /// </summary>
-        private System.Windows.Forms.Label label23;
-        /// <summary>
-        /// The DSD
-        /// </summary>
-        private System.Windows.Forms.TextBox DSD;
-        /// <summary>
-        /// The label22
-        /// </summary>
-        private System.Windows.Forms.Label label22;
-        /// <summary>
-        /// The v pp
-        /// </summary>
-        private System.Windows.Forms.TextBox vPP;
-        /// <summary>
-        /// The label15
-        /// </summary>
-        private System.Windows.Forms.Label label15;
-        /// <summary>
-        /// The em e
-        /// </summary>
-        private System.Windows.Forms.TextBox EmE;
-        /// <summary>
-        /// The e maximum l
-        /// </summary>
-        private System.Windows.Forms.TextBox EMaxL;
-        /// <summary>
-        /// The RMS
-        /// </summary>
-        private System.Windows.Forms.TextBox RMS;
-        /// <summary>
-        /// The r minimum s
-        /// </summary>
-        private System.Windows.Forms.TextBox RMinS;
-        /// <summary>
-        /// The label21
-        /// </summary>
-        private System.Windows.Forms.Label label21;
-        /// <summary>
-        /// The label20
-        /// </summary>
-        private System.Windows.Forms.Label label20;
-        /// <summary>
-        /// The label19
-        /// </summary>
-        private System.Windows.Forms.Label label19;
-        /// <summary>
-        /// The label18
-        /// </summary>
-        private System.Windows.Forms.Label label18;
+        public System.Windows.Forms.Button button11;
+        public System.Windows.Forms.Button button12;
+        public System.Windows.Forms.Button RandomRunBtn;
+        public System.Windows.Forms.TextBox TurnsTB;
+        public System.Windows.Forms.TextBox DistanceTB;
+        public System.Windows.Forms.Label label24;
+        public System.Windows.Forms.Label label25;
+        public System.Windows.Forms.Button button2;
+        public System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.Button button3;
+        public System.Windows.Forms.Button button4;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox ARTB;
+        public System.Windows.Forms.TextBox AHTB;
+        public System.Windows.Forms.TextBox CHTB;
+        public System.Windows.Forms.TextBox CSTB;
+        public System.Windows.Forms.Label label11;
+        public System.Windows.Forms.Label label10;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox TSTB;
+        public System.Windows.Forms.TextBox MSTB;
+        public System.Windows.Forms.TextBox MCTB;
+        public System.Windows.Forms.Button button5;
+        public System.Windows.Forms.Label label17;
+        public System.ComponentModel.BackgroundWorker DumpMeshes;
+        public System.Windows.Forms.Button button6;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.TextBox DsM;
+        public System.Windows.Forms.Label label23;
+        public System.Windows.Forms.TextBox DSD;
+        public System.Windows.Forms.Label label22;
+        public System.Windows.Forms.TextBox vPP;
+        public System.Windows.Forms.Label label15;
+        public System.Windows.Forms.TextBox EmE;
+        public System.Windows.Forms.TextBox EMaxL;
+        public System.Windows.Forms.TextBox RMS;
+        public System.Windows.Forms.TextBox RMinS;
+        public System.Windows.Forms.Label label21;
+        public System.Windows.Forms.Label label20;
+        public System.Windows.Forms.Label label19;
+        public System.Windows.Forms.Label label18;
+        public System.Windows.Forms.TabPage tabPage3;
+        public System.Windows.Forms.Button button10;
+        public System.Windows.Forms.TabPage tabPage4;
+        public System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Button button17;
+        public System.Windows.Forms.Label label30;
+        public System.Windows.Forms.Label label29;
+        public System.Windows.Forms.Button button18;
     }
 }
