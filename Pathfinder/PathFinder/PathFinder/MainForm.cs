@@ -3,7 +3,7 @@
 // Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
 //
 // Last Modified By : xenonsmurf Last Modified On : 03-29-2020 Last Modified On : 04-12-2020 Last
-// Modified On : 07-04-2020 ***********************************************************************
+// Last Modified On : 07-07-2020 ***********************************************************************
 // <copyright file="MainForm.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -117,7 +117,8 @@ namespace PathFinder
                 }
                 if (File.Exists("FFXINAV.dll"))
                 {
-                    Logger.AddDebugText(CheckedItemsRTB, string.Format(@"FFXINAV.dll Found"));
+                    FileVersionInfo FFXINAVversion = FileVersionInfo.GetVersionInfo("FFXINAV.dll");
+                    Logger.AddDebugText(CheckedItemsRTB, string.Format(@"FFXINAV.dll Found: Version: ({0})", FFXINAVversion.FileVersion));
                 }
                 else if (!File.Exists("FFXINAV.dll"))
                 {
@@ -205,6 +206,11 @@ namespace PathFinder
                 MainForm.ActiveForm.Opacity = 1;
         }
 
+        /// <summary>
+        /// Handles the Click event of the settingsToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }

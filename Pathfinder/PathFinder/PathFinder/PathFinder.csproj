@@ -97,7 +97,6 @@
     <Compile Include="Common\Log.cs" />
     <Compile Include="Characters\Navigation.cs" />
     <Compile Include="Common\NavigationEventArgs.cs" />
-    <Compile Include="Common\FFXINAVTOOLS.cs" />
     <Compile Include="Common\Imports.cs" />
     <Compile Include="Common\Zone.cs" />
     <Compile Include="Contracts\ITask.cs" />

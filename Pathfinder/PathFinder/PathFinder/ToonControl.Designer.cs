@@ -4,7 +4,7 @@
 // Created          : 03-16-2020
 //
 // Last Modified By : xenonsmurf
-// Last Modified On : 07-04-2020
+// Last Modified On : 07-11-2020
 // ***********************************************************************
 // <copyright file="ToonControl.Designer.cs" company="Xenonsmurf">
 //     Copyright ©  2020
@@ -73,6 +73,7 @@ namespace PathFinder
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button8 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.button18 = new System.Windows.Forms.Button();
@@ -128,6 +129,7 @@ namespace PathFinder
             this.button3 = new System.Windows.Forms.Button();
             this.rtbDebug = new System.Windows.Forms.RichTextBox();
             this.DumpMeshes = new System.ComponentModel.BackgroundWorker();
+            this.label26 = new System.Windows.Forms.Label();
             this.tabPage7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -420,6 +422,8 @@ namespace PathFinder
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label26);
+            this.tabPage4.Controls.Add(this.button8);
             this.tabPage4.Controls.Add(this.label30);
             this.tabPage4.Controls.Add(this.label29);
             this.tabPage4.Controls.Add(this.button18);
@@ -435,6 +439,16 @@ namespace PathFinder
             this.tabPage4.TabIndex = 8;
             this.tabPage4.Text = "Misc";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(7, 135);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(151, 23);
+            this.button8.TabIndex = 47;
+            this.button8.Text = "Initialize";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label30
             // 
@@ -1076,6 +1090,15 @@ namespace PathFinder
             this.DumpMeshes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DumpMeshes_DoWork);
             this.DumpMeshes.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DumpMeshes_RunWorkerCompleted);
             // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(172, 140);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(74, 13);
+            this.label26.TabIndex = 48;
+            this.label26.Text = "<- Click to test";
+            // 
             // ToonControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1219,60 +1242,227 @@ namespace PathFinder
         /// The label16
         /// </summary>
         public System.Windows.Forms.Label label16;
+        /// <summary>
+        /// The button11
+        /// </summary>
         public System.Windows.Forms.Button button11;
+        /// <summary>
+        /// The button12
+        /// </summary>
         public System.Windows.Forms.Button button12;
+        /// <summary>
+        /// The random run BTN
+        /// </summary>
         public System.Windows.Forms.Button RandomRunBtn;
+        /// <summary>
+        /// The turns tb
+        /// </summary>
         public System.Windows.Forms.TextBox TurnsTB;
+        /// <summary>
+        /// The distance tb
+        /// </summary>
         public System.Windows.Forms.TextBox DistanceTB;
+        /// <summary>
+        /// The label24
+        /// </summary>
         public System.Windows.Forms.Label label24;
+        /// <summary>
+        /// The label25
+        /// </summary>
         public System.Windows.Forms.Label label25;
+        /// <summary>
+        /// The button2
+        /// </summary>
         public System.Windows.Forms.Button button2;
+        /// <summary>
+        /// The tab page2
+        /// </summary>
         public System.Windows.Forms.TabPage tabPage2;
+        /// <summary>
+        /// The button3
+        /// </summary>
         public System.Windows.Forms.Button button3;
+        /// <summary>
+        /// The button4
+        /// </summary>
         public System.Windows.Forms.Button button4;
+        /// <summary>
+        /// The label6
+        /// </summary>
         public System.Windows.Forms.Label label6;
+        /// <summary>
+        /// The label5
+        /// </summary>
         public System.Windows.Forms.Label label5;
+        /// <summary>
+        /// The label4
+        /// </summary>
         public System.Windows.Forms.Label label4;
+        /// <summary>
+        /// The artb
+        /// </summary>
         public System.Windows.Forms.TextBox ARTB;
+        /// <summary>
+        /// The ahtb
+        /// </summary>
         public System.Windows.Forms.TextBox AHTB;
+        /// <summary>
+        /// The CHTB
+        /// </summary>
         public System.Windows.Forms.TextBox CHTB;
+        /// <summary>
+        /// The CSTB
+        /// </summary>
         public System.Windows.Forms.TextBox CSTB;
+        /// <summary>
+        /// The label11
+        /// </summary>
         public System.Windows.Forms.Label label11;
+        /// <summary>
+        /// The label10
+        /// </summary>
         public System.Windows.Forms.Label label10;
+        /// <summary>
+        /// The label8
+        /// </summary>
         public System.Windows.Forms.Label label8;
+        /// <summary>
+        /// The label7
+        /// </summary>
         public System.Windows.Forms.Label label7;
+        /// <summary>
+        /// The TSTB
+        /// </summary>
         public System.Windows.Forms.TextBox TSTB;
+        /// <summary>
+        /// The MSTB
+        /// </summary>
         public System.Windows.Forms.TextBox MSTB;
+        /// <summary>
+        /// The MCTB
+        /// </summary>
         public System.Windows.Forms.TextBox MCTB;
+        /// <summary>
+        /// The button5
+        /// </summary>
         public System.Windows.Forms.Button button5;
+        /// <summary>
+        /// The label17
+        /// </summary>
         public System.Windows.Forms.Label label17;
+        /// <summary>
+        /// The dump meshes
+        /// </summary>
         public System.ComponentModel.BackgroundWorker DumpMeshes;
+        /// <summary>
+        /// The button6
+        /// </summary>
         public System.Windows.Forms.Button button6;
+        /// <summary>
+        /// The group box1
+        /// </summary>
         public System.Windows.Forms.GroupBox groupBox1;
+        /// <summary>
+        /// The ds m
+        /// </summary>
         public System.Windows.Forms.TextBox DsM;
+        /// <summary>
+        /// The label23
+        /// </summary>
         public System.Windows.Forms.Label label23;
+        /// <summary>
+        /// The DSD
+        /// </summary>
         public System.Windows.Forms.TextBox DSD;
+        /// <summary>
+        /// The label22
+        /// </summary>
         public System.Windows.Forms.Label label22;
+        /// <summary>
+        /// The v pp
+        /// </summary>
         public System.Windows.Forms.TextBox vPP;
+        /// <summary>
+        /// The label15
+        /// </summary>
         public System.Windows.Forms.Label label15;
+        /// <summary>
+        /// The em e
+        /// </summary>
         public System.Windows.Forms.TextBox EmE;
+        /// <summary>
+        /// The e maximum l
+        /// </summary>
         public System.Windows.Forms.TextBox EMaxL;
+        /// <summary>
+        /// The RMS
+        /// </summary>
         public System.Windows.Forms.TextBox RMS;
+        /// <summary>
+        /// The r minimum s
+        /// </summary>
         public System.Windows.Forms.TextBox RMinS;
+        /// <summary>
+        /// The label21
+        /// </summary>
         public System.Windows.Forms.Label label21;
+        /// <summary>
+        /// The label20
+        /// </summary>
         public System.Windows.Forms.Label label20;
+        /// <summary>
+        /// The label19
+        /// </summary>
         public System.Windows.Forms.Label label19;
+        /// <summary>
+        /// The label18
+        /// </summary>
         public System.Windows.Forms.Label label18;
+        /// <summary>
+        /// The tab page3
+        /// </summary>
         public System.Windows.Forms.TabPage tabPage3;
+        /// <summary>
+        /// The button10
+        /// </summary>
         public System.Windows.Forms.Button button10;
+        /// <summary>
+        /// The tab page4
+        /// </summary>
         public System.Windows.Forms.TabPage tabPage4;
+        /// <summary>
+        /// The button16
+        /// </summary>
         public System.Windows.Forms.Button button16;
+        /// <summary>
+        /// The label27
+        /// </summary>
         private System.Windows.Forms.Label label27;
+        /// <summary>
+        /// The button7
+        /// </summary>
         private System.Windows.Forms.Button button7;
+        /// <summary>
+        /// The label28
+        /// </summary>
         private System.Windows.Forms.Label label28;
+        /// <summary>
+        /// The button17
+        /// </summary>
         private System.Windows.Forms.Button button17;
+        /// <summary>
+        /// The label30
+        /// </summary>
         public System.Windows.Forms.Label label30;
+        /// <summary>
+        /// The label29
+        /// </summary>
         public System.Windows.Forms.Label label29;
+        /// <summary>
+        /// The button18
+        /// </summary>
         public System.Windows.Forms.Button button18;
+        private System.Windows.Forms.Button button8;
+        public System.Windows.Forms.Label label26;
     }
 }

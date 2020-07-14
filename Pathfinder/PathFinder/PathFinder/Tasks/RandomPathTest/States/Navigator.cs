@@ -1,10 +1,9 @@
 ﻿// *********************************************************************** Assembly : PathFinder
 // Author : xenonsmurf Created : 04-06-2020 Created : 04-06-2020 Created : 04-06-2020 Created :
-// 04-06-2020 Created : 04-06-2020 Created : 04-06-2020 Created : 04-06-2020 Created : 04-06-2020
+// Created : 04-06-2020 Created : 04-06-2020 Created : 04-06-2020 Created :
 //
-// Last Modified By : xenonsmurf Last Modified On : 04-07-2020 Last Modified On : 07-04-2020
-// *********************************************************************** Last Modified On :
-// 07-04-2020 ***********************************************************************
+// Last Modified By : xenonsmurf Last Modified On : 04-07-2020 Last Modified On : 07-04-2020 Last
+// Modified On : 07-10-2020 ***********************************************************************
 // <copyright file="Navigator.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -127,8 +126,16 @@ namespace PathFinder.Tasks.Random.States
             Character.Navi.Reset();
         }
 
+        /// <summary>
+        /// Delegate SafeCallDelegate
+        /// </summary>
+        /// <param name="text">The text.</param>
         private delegate void SafeCallDelegate(string text);
 
+        /// <summary>
+        /// Writes the text safe.
+        /// </summary>
+        /// <param name="text">The text.</param>
         private void WriteTextSafe(string text)
         {
             if (Character.Tc.RandomRunBtn.InvokeRequired)

@@ -1,10 +1,9 @@
 ﻿// *********************************************************************** Assembly : PathFinder
 // Author : xenonsmurf Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
-// 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020
+// Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
 //
-// Last Modified By : xenonsmurf Last Modified On : 04-04-2020 Last Modified On : 04-12-2020
-// *********************************************************************** Last Modified On :
-// 07-04-2020 ***********************************************************************
+// Last Modified By : xenonsmurf Last Modified On : 04-04-2020 Last Modified On : 04-12-2020 Last
+// Modified On : 07-13-2020 ***********************************************************************
 // <copyright file="ToonControl.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -299,6 +298,10 @@ namespace PathFinder
         /// </summary>
         public double NewMeshEdgeDistance;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [show MSG].
+        /// </summary>
+        /// <value><c>true</c> if [show MSG]; otherwise, <c>false</c>.</value>
         private bool ShowMsg { get; set; } = true;
 
         /// <summary>
@@ -368,8 +371,6 @@ namespace PathFinder
                         OldZone = string.Format(@"Zone id = {0}", Character.Api.Player.ZoneId.ToString());
                         if (fCount > 0)
                         {
-                            Character.FFxiNAV.Unload();
-
                             var NavFile = string.Format(Application.StartupPath + "\\Dumped NavMeshes\\{0}.nav", Character.Api.Player.ZoneId);
                             if (File.Exists(NavFile))
                             {
@@ -820,6 +821,11 @@ namespace PathFinder
             Character.FFxiNAV.Unload();
         }
 
+        /// <summary>
+        /// Handles the Click event of the button7 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button7_Click(object sender, EventArgs e)
         {
             var test = new position_t { X = 99999, Y = 9999, Z = 9999, Moving = 0, Rotation = 0 };
@@ -828,6 +834,11 @@ namespace PathFinder
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh PlayerPos = {0}", Character.FFxiNAV.isValidPosition(PlayerPos, false).ToString()));
         }
 
+        /// <summary>
+        /// Handles the 1 event of the button16_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button16_Click_1(object sender, EventArgs e)
         {
             var test = new position_t { X = 99999, Y = 9999, Z = 9999, Moving = 0, Rotation = 0 };
@@ -836,21 +847,41 @@ namespace PathFinder
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"is this a valid Position on the mesh PlayerPos = {0}", Character.FFxiNAV.isValidPosition(PlayerPos, false).ToString()));
         }
 
+        /// <summary>
+        /// Handles the 1 event of the button12_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button12_Click_1(object sender, EventArgs e)
         {
             Character.LoadNavMesh();
         }
 
+        /// <summary>
+        /// Handles the Click event of the button11 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button11_Click(object sender, EventArgs e)
         {
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"NavMesh is enabled = {0}", Character.Tasks.NavTask.FFxiNav.IsNavMeshEnabled().ToString()));
         }
 
+        /// <summary>
+        /// Handles the Click event of the button10 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button10_Click(object sender, EventArgs e)
         {
             Character.FFxiNAV.Unload();
         }
 
+        /// <summary>
+        /// Handles the Click event of the RandomRunBtn control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void RandomRunBtn_Click(object sender, EventArgs e)
         {
             if (RandomRunBtn.Text == "Start" && !Character.Tasks.RandomPathTask.IsBusy)
@@ -889,6 +920,11 @@ namespace PathFinder
             }
         }
 
+        /// <summary>
+        /// Handles the 1 event of the button7_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button7_Click_1(object sender, EventArgs e)
         {
             var start = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
@@ -905,6 +941,11 @@ namespace PathFinder
             }
         }
 
+        /// <summary>
+        /// Handles the 1 event of the button17_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button17_Click_1(object sender, EventArgs e)
         {
             var start = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
@@ -914,6 +955,11 @@ namespace PathFinder
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"Rotation = {0}", Character.FFxiNAV.Getrotation(start, end).ToString()));
         }
 
+        /// <summary>
+        /// Handles the Click event of the button18 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button18_Click(object sender, EventArgs e)
         {
             // position_t start, float maxRadius, sbyte maxTurns, bool UseCustom)
@@ -923,6 +969,19 @@ namespace PathFinder
             bool UseCustom = false; // set true if you are using meshes made with geometry data from Noesis
             bool RandomPathFound = Character.FFxiNAV.findRandomPath(PlayerPos, Distance, Turns, UseCustom);
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"Did we find a random path = {0}", RandomPathFound.ToString()));
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            string ConfigPath = string.Format("{0}\\Log Configs\\Default_Config.conf", Application.StartupPath);
+            try
+            {
+                Character.FFxiNAV.Initialize(ConfigPath);
+            }
+            catch (Exception ex)
+            {
+                Character.Logger.AddDebugText(rtbDebug, ex.ToString());
+            }
         }
     }
 }

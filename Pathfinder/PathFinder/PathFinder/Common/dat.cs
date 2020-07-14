@@ -1,7 +1,9 @@
 ﻿// *********************************************************************** Assembly : PathFinder
-// Author : vulture Created : 04-10-2020
+// Author : vulture Created : 04-10-2020 Created : 04-10-2020
 //
-// Last Modified By : xenonsmurf Last Modified On : 04-12-2020 ***********************************************************************
+// Last Modified By : xenonsmurf Last Modified On : 04-12-2020
+// *********************************************************************** Last Modified On :
+// 07-13-2020 ***********************************************************************
 // <copyright file="dat.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -294,12 +296,16 @@ namespace PathFinder.Common
         /// <value>The s.</value>
         public FileStream s { get; set; }
 
+        /// <summary>
+        /// Gets or sets the br.
+        /// </summary>
+        /// <value>The br.</value>
         public BinaryReader br { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DAT"/> class.
         /// </summary>
-        /// <param name="args">The arguments.</param>
+        /// <param name="s">The s.</param>
         public DAT(Stream s)
         {
             Chunks.Clear();
