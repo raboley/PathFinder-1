@@ -23,20 +23,26 @@ Development has slowed, and mostly happens on the my days off.
 * Build navmeshes using FFXINAV.dll
 * Test Navmeshes
 
-* CanSeeDestination 
+
+#### FFXINAV DLL
+
+* CanSeeDestination
 * Unload
-* Initialize //pathsize doesn't matter
-* Load
+* Initialize // needs path to log config file (Default_Config.conf which is included)
+* Load  // loads the navmesh 
 * LoadOBJFile
 * DumpNavMesh
 * GetLogMessage
-* FindPath  
+* FindPath
+* FindRandomPath
+* FindClosestPath // this prevents exploits with navmesh / impassible terrain
+* IsValidPosition // can be used to make a grid for A star pathfinding. (if you didn't want to use recast detour to find a path).
 * GetDistanceToWall //this is distance to navmesh edge
-* GetRotation 
+* GetRotation
 * IsNavMeshEnabled
 * PathPoints
 * NavMeshSettings //Lets you change the NavMesh settings before building a new mesh
-* GetWaypoints    //returns the waypoints in the path 
+* GetWaypoints //returns the waypoints in the path
 
 ### navmesh settings all meshes are dumped with.
 
