@@ -3,7 +3,7 @@
 // Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
 //
 // Last Modified By : xenonsmurf Last Modified On : 04-04-2020 Last Modified On : 04-12-2020 Last
-// Modified On : 07-13-2020 ***********************************************************************
+// Last Modified On : 07-14-2020 ***********************************************************************
 // <copyright file="ToonControl.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -971,12 +971,24 @@ namespace PathFinder
             Character.Logger.AddDebugText(rtbDebug, string.Format(@"Did we find a random path = {0}", RandomPathFound.ToString()));
         }
 
+        /// <summary>
+        /// Handles the Click event of the button8 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button8_Click(object sender, EventArgs e)
         {
             string ConfigPath = string.Format("{0}\\Log Configs\\Default_Config.conf", Application.StartupPath);
             try
             {
-                Character.FFxiNAV.Initialize(ConfigPath);
+                if (Character.FFxiNAV.Initialize(ConfigPath))
+                {
+                    Character.Logger.AddDebugText(rtbDebug, "Initialized");
+                }
+                if (!Character.FFxiNAV.Initialize(ConfigPath))
+                {
+                    Character.Logger.AddDebugText(rtbDebug, "Unable to Initialize");
+                }
             }
             catch (Exception ex)
             {

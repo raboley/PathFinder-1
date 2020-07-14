@@ -3,7 +3,7 @@
 // Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
 //
 // Last Modified By : xenonsmurf Last Modified On : 04-04-2020 Last Modified On : 04-12-2020 Last
-// Last Modified On : 07-13-2020 ***********************************************************************
+// Last Modified On : 07-14-2020 ***********************************************************************
 // <copyright file="Character.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -94,7 +94,14 @@ namespace PathFinder.Characters
             string ConfigPath = string.Format("{0}\\Log Configs\\Default_Config.conf", Application.StartupPath);
             try
             {
-                FFxiNAV.Initialize(ConfigPath);
+                if (FFxiNAV.Initialize(ConfigPath))
+                {
+                    Logger.AddDebugText(tc.rtbDebug, "Initialized");
+                }
+                if (!FFxiNAV.Initialize(ConfigPath))
+                {
+                    Logger.AddDebugText(tc.rtbDebug, "Unable to Initialize");
+                }
             }
             catch (Exception ex)
             {

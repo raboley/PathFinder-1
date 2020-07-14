@@ -4,7 +4,7 @@
 // Created          : 03-16-2020
 //
 // Last Modified By : xenonsmurf
-// Last Modified On : 07-11-2020
+// Last Modified On : 07-14-2020
 // ***********************************************************************
 // <copyright file="ToonControl.Designer.cs" company="Xenonsmurf">
 //     Copyright ©  2020
@@ -1462,7 +1462,13 @@ namespace PathFinder
         /// The button18
         /// </summary>
         public System.Windows.Forms.Button button18;
+        /// <summary>
+        /// The button8
+        /// </summary>
         private System.Windows.Forms.Button button8;
+        /// <summary>
+        /// The label26
+        /// </summary>
         public System.Windows.Forms.Label label26;
     }
 }

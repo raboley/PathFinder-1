@@ -4,7 +4,7 @@
 // Created          : 07-01-2020
 //
 // Last Modified By : xenonsmurf
-// Last Modified On : 07-04-2020
+// Last Modified On : 07-13-2020
 // ***********************************************************************
 // <copyright file="Resources.Designer.cs" company="Xenonsmurf">
 //     Copyright ©  2020

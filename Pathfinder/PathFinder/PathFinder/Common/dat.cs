@@ -1,9 +1,7 @@
 ﻿// *********************************************************************** Assembly : PathFinder
-// Author : vulture Created : 04-10-2020 Created : 04-10-2020
+// Author : vulture Created : 04-10-2020 Created : 04-10-2020 Created : 04-10-2020 Created : 04-10-2020
 //
-// Last Modified By : xenonsmurf Last Modified On : 04-12-2020
-// *********************************************************************** Last Modified On :
-// 07-13-2020 ***********************************************************************
+// Last Modified By : xenonsmurf Last Modified On : 04-12-2020 Last Modified On : 07-13-2020 ***********************************************************************
 // <copyright file="dat.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -21,7 +19,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace PathFinder.Common

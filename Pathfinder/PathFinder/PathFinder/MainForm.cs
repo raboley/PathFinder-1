@@ -3,7 +3,7 @@
 // Created : 03-16-2020 Created : 03-16-2020 Created : 03-16-2020 Created :
 //
 // Last Modified By : xenonsmurf Last Modified On : 03-29-2020 Last Modified On : 04-12-2020 Last
-// Last Modified On : 07-07-2020 ***********************************************************************
+// Last Modified On : 07-14-2020 ***********************************************************************
 // <copyright file="MainForm.cs" company="Xenonsmurf">
 //     Copyright © 2020
 // </copyright>
@@ -16,7 +16,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace PathFinder
@@ -98,11 +97,6 @@ namespace PathFinder
                     Logger.AddDebugText(CheckedItemsRTB, "Please Update your .Net framework, https://www.microsoft.com/en-us/download/details.aspx?id=53344");
                     return false;
                 }
-
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-                string version = fvi.FileVersion;
-                Logger.AddDebugText(CheckedItemsRTB, string.Format(@"Servus Version ({0})", version));
 
                 if (File.Exists("EliteAPI.dll"))
                 {
