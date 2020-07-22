@@ -95,7 +95,6 @@ To test a navmesh
 * Select Point of interest
 * Hit start
  
-this test app using the kb to move in ffxi, for better results you might want to use EliteMMO SetAutoFollow function.
 
 
 #### Dat Tab
