@@ -159,13 +159,13 @@ namespace PathFinder.Characters
         /// Exports the single map data.
         /// </summary>
         /// <param name="name">The name.</param>
-        public void ExportSingleMapData(string name)
+        public void ExportSingleMapData(string Id)
         {
             try
             {
                 foreach (var zn in Tasks.RandomPathTask.Options.Zones)
                 {
-                    if (zn.name == name)
+                    if (zn.id.ToString() == Id)
                     {
                         Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Exporting {0} ID= {1}", zn.name, zn.id.ToString()));
                         string str = zn.path.Replace(@"\", @"/");
@@ -428,7 +428,7 @@ namespace PathFinder.Characters
                     Logger.AddDebugText(Tc.rtbDebug, string.Format(@"Added {0} Zones", Tasks.RandomPathTask.Options.Zones.Count.ToString()));
                     foreach (var item in Tasks.RandomPathTask.Options.Zones)
                     {
-                        Tc.mapLB.Items.Add(item.name);
+                        Tc.mapLB.Items.Add(item.id);
                     }
                 }
                 catch (Exception ex)

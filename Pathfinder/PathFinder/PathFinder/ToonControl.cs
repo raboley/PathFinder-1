@@ -731,49 +731,31 @@ namespace PathFinder
         {
             try
             {
+                while (!DumpMeshes.CancellationPending)
                 {
-                    while (!DumpMeshes.CancellationPending)
+                    string path = string.Format("{0}\\Map Collision obj\\", Application.StartupPath);
+                    int fileCount = Directory.GetFiles(path, "*.obj", SearchOption.AllDirectories).Length;
+                    Character.Logger.AddDebugText(rtbDebug, string.Format(@"{0}.obj files fould in Map Collision obj folder", fileCount.ToString()));
+                    foreach (var file in Directory.EnumerateFiles(string.Format(path, "*.obj")))
                     {
-                        string path = string.Format("{0}\\Map Collision obj\\", Application.StartupPath);
-                        int fileCount = Directory.GetFiles(path, "*.obj", SearchOption.AllDirectories).Length;
-                        Character.Logger.AddDebugText(rtbDebug, string.Format(@"{0}.obj files fould in Map Collision obj folder", fileCount.ToString()));
-                        foreach (var file in Directory.EnumerateFiles(string.Format(path, "*.obj")))
+                        string result;
+                        result = Path.GetFileName(file);
+                        string result2 = result.Substring(0, result.LastIndexOf(".") + 1);
+                        if (File.Exists(string.Format(@"{0}\\Dumped NavMeshes\\{1}nav", Application.StartupPath, result2)))
                         {
-                            string result;
-                            result = Path.GetFileName(file);
-                            string result2 = result.Substring(0, result.LastIndexOf(".") + 1);
-                            if (File.Exists(string.Format(@"{0}\\Dumped NavMeshes\\{1}nav", Application.StartupPath, result2)))
-                            {
-                                if (MessageBox.Show(string.Format(@"Are you sure you want to overwrite {0}.nav", result2.ToString()), "Alert", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                                {
-                                    Character.Logger.AddDebugText(rtbDebug, string.Format(@"Dumping NavMesh for {0}", result));
-                                    Thread.Sleep(100);
-                                    if (!Character.FFxiNAV.DumpingMesh)
-                                    {
-                                        Stopwatch stopWatch = new Stopwatch();
-                                        stopWatch.Start();
-                                        Character.FFxiNAV.Dump_NavMesh(file);
-                                        stopWatch.Stop();
-                                        TimeSpan ts = stopWatch.Elapsed;
+                            DialogResult box = MessageBox.Show(string.Format(@"Are you sure you want to overwrite {0}.nav", result2.ToString()), "Question", MessageBoxButtons.YesNoCancel);
 
-                                        // Format and display the TimeSpan value.
-                                        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                            ts.Hours, ts.Minutes, ts.Seconds,
-                                            ts.Milliseconds / 10);
-                                        Character.Logger.AddDebugText(rtbDebug, string.Format(@"Time Taken to dump mesh = " + elapsedTime));
-                                    }
-                                }
-                            }
-                            if (!File.Exists(string.Format(@"{0}\\Dumped NavMeshes\\{1}nav", Application.StartupPath, result2)))
+                            if (box == DialogResult.Yes)
                             {
-                                Character.Logger.AddDebugText(rtbDebug, string.Format(@"Dumping NavMesh for {0}", result));
-                                Thread.Sleep(100);
-                                if (!Character.FFxiNAV.DumpingMesh)
+                                if (!Character.FFxiNAV.DumpingMesh && !DumpMeshes.CancellationPending)
                                 {
                                     Stopwatch stopWatch = new Stopwatch();
                                     stopWatch.Start();
                                     Character.FFxiNAV.Dump_NavMesh(file);
                                     stopWatch.Stop();
+                                    Thread.Sleep(1000);
+                                    Character.FFxiNAV.UnloadMeshBuilder();
+                                    Thread.Sleep(1000);
                                     TimeSpan ts = stopWatch.Elapsed;
 
                                     // Format and display the TimeSpan value.
@@ -782,11 +764,51 @@ namespace PathFinder
                                         ts.Milliseconds / 10);
                                     Character.Logger.AddDebugText(rtbDebug, string.Format(@"Time Taken to dump mesh = " + elapsedTime));
                                 }
+                                if (Character.FFxiNAV.DumpingMesh)
+                                {
+                                    Thread.Sleep(1000);
+                                }
+                            }
+                            else if (box == DialogResult.Cancel)
+                            {
+                                DumpMeshes.CancelAsync();
+                                break;
+                            }
+                            else if (box == DialogResult.No)
+                            {
+                                continue;
                             }
                         }
+                        if (!File.Exists(string.Format(@"{0}\\Dumped NavMeshes\\{1}nav", Application.StartupPath, result2)))
+                        {
+                            Character.Logger.AddDebugText(rtbDebug, string.Format(@"Dumping NavMesh for {0}", result));
+                            Thread.Sleep(1000);
+                            if (!Character.FFxiNAV.DumpingMesh)
+                            {
+                                Stopwatch stopWatch = new Stopwatch();
+                                stopWatch.Start();
+                                Character.FFxiNAV.Dump_NavMesh(file);
+                                stopWatch.Stop();
+                                Thread.Sleep(1000);
+                                Character.FFxiNAV.UnloadMeshBuilder();
+                                Thread.Sleep(1000);
+                                TimeSpan ts = stopWatch.Elapsed;
 
-                        DumpMeshes.CancelAsync();
+                                // Format and display the TimeSpan value.
+                                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                    ts.Hours, ts.Minutes, ts.Seconds,
+                                    ts.Milliseconds / 10);
+                                Character.Logger.AddDebugText(rtbDebug, string.Format(@"Time Taken to dump mesh = " + elapsedTime));
+                            }
+                            if (Character.FFxiNAV.DumpingMesh)
+                            {
+                                Thread.Sleep(1000);
+                            }
+                        }
+                        Thread.Sleep(1000);
                     }
+                    Thread.Sleep(1000);
+                    DumpMeshes.CancelAsync();
                 }
             }
             catch (Exception es)

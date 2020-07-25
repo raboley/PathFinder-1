@@ -204,7 +204,7 @@ namespace PathFinder.Characters
             var position = new position_t { X = entity.X, Y = entity.Y, Z = entity.Z };
 
             Reset();
-            FaceHeading(position);
+            // FaceHeading(position);
             MoveForwardTowardsPosition(position, true);
         }
 
@@ -342,7 +342,7 @@ namespace PathFinder.Characters
                     goToZ = (TargetPosition.Z - player.Z) / normalized;
                     goToY = (TargetPosition.Y - player.Y) / normalized;
                 }
-                FaceHeading(TargetPosition);
+                // FaceHeading(TargetPosition);
                 Character.Api.AutoFollow.SetAutoFollowCoords(goToX, 0, goToZ);
                 Character.Api.AutoFollow.IsAutoFollowing = true;
             }

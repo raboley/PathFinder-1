@@ -73,6 +73,7 @@ namespace PathFinder
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label26 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -129,7 +130,6 @@ namespace PathFinder
             this.button3 = new System.Windows.Forms.Button();
             this.rtbDebug = new System.Windows.Forms.RichTextBox();
             this.DumpMeshes = new System.ComponentModel.BackgroundWorker();
-            this.label26 = new System.Windows.Forms.Label();
             this.tabPage7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -439,6 +439,15 @@ namespace PathFinder
             this.tabPage4.TabIndex = 8;
             this.tabPage4.Text = "Misc";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(172, 140);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(74, 13);
+            this.label26.TabIndex = 48;
+            this.label26.Text = "<- Click to test";
             // 
             // button8
             // 
@@ -866,7 +875,7 @@ namespace PathFinder
             this.CSTB.Name = "CSTB";
             this.CSTB.Size = new System.Drawing.Size(46, 20);
             this.CSTB.TabIndex = 24;
-            this.CSTB.Text = "0.20";
+            this.CSTB.Text = "0.233";
             this.CSTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.CSTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CSTB_KeyPress);
             // 
@@ -891,7 +900,7 @@ namespace PathFinder
             this.CHTB.Name = "CHTB";
             this.CHTB.Size = new System.Drawing.Size(46, 20);
             this.CHTB.TabIndex = 25;
-            this.CHTB.Text = "0.10";
+            this.CHTB.Text = "0.077";
             this.CHTB.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.CHTB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CHTB_KeyPress);
             // 
@@ -1089,15 +1098,6 @@ namespace PathFinder
             this.DumpMeshes.WorkerSupportsCancellation = true;
             this.DumpMeshes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DumpMeshes_DoWork);
             this.DumpMeshes.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DumpMeshes_RunWorkerCompleted);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(172, 140);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(74, 13);
-            this.label26.TabIndex = 48;
-            this.label26.Text = "<- Click to test";
             // 
             // ToonControl
             // 

@@ -80,7 +80,10 @@ namespace PathFinder.Common
         /// Unloads meshes
         /// </summary>
         [DllImport("FFXINAV.dll", EntryPoint = "unload", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
-        public static extern void unload(IntPtr pFFXINavClassObject);
+        public static extern bool unload(IntPtr pFFXINavClassObject);
+
+        [DllImport("FFXINAV.dll", EntryPoint = "unloadMeshBuilder", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+        public static extern bool unloadMeshBuilder(IntPtr pFFXINavClassObject);
 
         /// <summary>
         /// Initializes the specified p ffxi nav class object.
@@ -387,9 +390,14 @@ namespace PathFinder.Common
         /// <summary>
         /// Unloads this instance.
         /// </summary>
-        public void Unload()
+        public bool Unload()
         {
-            unload(this.m_pNativeObject);
+            return unload(this.m_pNativeObject);
+        }
+
+        public bool UnloadMeshBuilder()
+        {
+            return unloadMeshBuilder(this.m_pNativeObject);
         }
 
         /// <summary>
@@ -435,10 +443,15 @@ namespace PathFinder.Common
             if (DumpingMesh == false)
             {
                 DumpingMesh = true;
-                if (DumpNavMesh(this.m_pNativeObject, file))
+                if (UnloadMeshBuilder())
                 {
-                    DumpingMesh = false;
+                    if (DumpNavMesh(this.m_pNativeObject, file))
+                    {
+                        DumpingMesh = false;
+                    }
                 }
+                else
+                    DumpingMesh = false;
             }
         }
 
