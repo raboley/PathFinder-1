@@ -1017,5 +1017,57 @@ namespace PathFinder
                 Character.Logger.AddDebugText(rtbDebug, ex.ToString());
             }
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10000;)
+            {
+                if (IsDivisible(i, 10))
+                {
+                    if (!Character.Tasks.RandomPathTask.IsBusy)
+                    {
+                        Thread.Sleep(1000);
+                        Character.Tasks.RandomPathTask.Start();
+                        Character.Tasks.RandomPathTask.Options.StopRunning = false;
+                    }
+                }
+                else if (IsDivisible(i, 10) && Character.Tasks.RandomPathTask.IsBusy)
+                {
+                    Thread.Sleep(1000);
+                    Character.Tasks.RandomPathTask.Stop();
+                    Character.Tasks.RandomPathTask.Options.StopRunning = true;
+                }
+                i++;
+            }
+        }
+
+        public bool IsDivisible(int x, int n)
+        {
+            return (x % n) == 0;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            if (button20.Text == "Start looking for Random Paths")
+            {
+                timer1.Enabled = true;
+                timer1.Start();
+                button20.Text = "Stop looking for Random Paths";
+            }
+            else if (button20.Text == "Stop looking for Random Paths")
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+                Thread.Sleep(100);
+                Character.Tasks.RandomPathTask.Stop();
+                Character.Navi.Reset();
+                Character.Tasks.Stop();
+                Character.FFxiNAV.Waypoints.Clear();
+                Character.Tasks.RandomPathTask.Options.WayPoints.Clear();
+                Character.Tasks.RandomPathTask.Options.StopRunning = true;
+                Character.Api.AutoFollow.IsAutoFollowing = false;
+                button20.Text = "Start looking for Random Paths";
+            }
+        }
     }
 }

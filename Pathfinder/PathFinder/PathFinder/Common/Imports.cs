@@ -264,7 +264,7 @@ namespace PathFinder.Common
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [DllImport("FFXINAV.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static unsafe extern bool ReleaseItems(IntPtr pFFXINavClassObject, IntPtr itemsHandle);
+        public static unsafe extern bool ReleaseItems(IntPtr pFFXINavClassObject, ItemsSafeHandle itemsHandle);
 
         /// <summary>
         /// Gets the way points wrapper.
@@ -281,8 +281,7 @@ namespace PathFinder.Common
             {
                 throw new InvalidOperationException();
             }
-
-            return itemsHandle;
+            return (itemsHandle);
         }
 
         /// <summary>

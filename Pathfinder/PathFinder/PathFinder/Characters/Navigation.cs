@@ -51,7 +51,7 @@ namespace PathFinder.Characters
         /// <summary>
         /// The too close distance
         /// </summary>
-        private const double TooCloseDistance = 1.5;
+        public const double TooCloseDistance = 1.5;
 
         /// <summary>
         /// Gets the member position.
@@ -257,7 +257,7 @@ namespace PathFinder.Characters
         /// <summary>
         /// Avoids the obstacles.
         /// </summary>
-        private void AvoidObstacles()
+        public void AvoidObstacles()
         {
             if (IsStuck())
             {
@@ -282,7 +282,7 @@ namespace PathFinder.Characters
         /// Determines whether this instance is stuck.
         /// </summary>
         /// <returns><c>true</c> if this instance is stuck; otherwise, <c>false</c>.</returns>
-        private bool IsStuck()
+        public bool IsStuck()
         {
             var firstX = Character.Api.Player.X;
             var firstZ = Character.Api.Player.Z;
@@ -295,7 +295,7 @@ namespace PathFinder.Characters
         /// Keeps the one yalm back.
         /// </summary>
         /// <param name="position">The position.</param>
-        private void KeepOneYalmBack(position_t position)
+        public void KeepOneYalmBack(position_t position)
         {
             if (DistanceTo(position) > TooCloseDistance) return;
 
@@ -315,7 +315,7 @@ namespace PathFinder.Characters
         /// <summary>
         /// Keeps the running with keyboard.
         /// </summary>
-        private void KeepRunningWithKeyboard()
+        public void KeepRunningWithKeyboard()
         {
             Character.Api.ThirdParty.KeyDown(EliteMMO.API.Keys.NUMPAD8);
         }
@@ -352,7 +352,7 @@ namespace PathFinder.Characters
         /// Wiggles the character.
         /// </summary>
         /// <param name="attempts">The attempts.</param>
-        private void WiggleCharacter(int attempts)
+        public void WiggleCharacter(int attempts)
         {
             int count = 0;
             float dir = -45;
@@ -404,7 +404,7 @@ namespace PathFinder.Characters
         /// <param name="a">a.</param>
         /// <param name="b">The b.</param>
         /// <returns>System.Double.</returns>
-        private double MathMod(double a, double b)
+        public double MathMod(double a, double b)
         {
             // 4 known ways to do it here (a - (b * Math.Floor(a / b))) (a - (b * (Math.Sign(b) *
             // Math.Floor(a / Math.Abs(b))))) (Math.Abs(a * b) + a) % b ((a % b) + b) % b // <- THIS

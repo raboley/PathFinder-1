@@ -130,6 +130,10 @@ namespace PathFinder
             this.button3 = new System.Windows.Forms.Button();
             this.rtbDebug = new System.Windows.Forms.RichTextBox();
             this.DumpMeshes = new System.ComponentModel.BackgroundWorker();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button20 = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.tabPage7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -145,7 +149,7 @@ namespace PathFinder
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 2000;
+            this.timer.Interval = 3000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // tabPage7
@@ -322,6 +326,9 @@ namespace PathFinder
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label32);
+            this.tabPage3.Controls.Add(this.label31);
+            this.tabPage3.Controls.Add(this.button20);
             this.tabPage3.Controls.Add(this.label25);
             this.tabPage3.Controls.Add(this.label24);
             this.tabPage3.Controls.Add(this.TurnsTB);
@@ -382,7 +389,7 @@ namespace PathFinder
             // 
             // RandomRunBtn
             // 
-            this.RandomRunBtn.Location = new System.Drawing.Point(30, 87);
+            this.RandomRunBtn.Location = new System.Drawing.Point(15, 90);
             this.RandomRunBtn.Name = "RandomRunBtn";
             this.RandomRunBtn.Size = new System.Drawing.Size(75, 23);
             this.RandomRunBtn.TabIndex = 38;
@@ -1099,6 +1106,41 @@ namespace PathFinder
             this.DumpMeshes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DumpMeshes_DoWork);
             this.DumpMeshes.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DumpMeshes_RunWorkerCompleted);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(15, 119);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(174, 23);
+            this.button20.TabIndex = 43;
+            this.button20.Text = "Start looking for Random Paths";
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.ForeColor = System.Drawing.Color.Red;
+            this.label31.Location = new System.Drawing.Point(96, 95);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(179, 13);
+            this.label31.TabIndex = 44;
+            this.label31.Text = "<-- use this to look for 1 random path";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.ForeColor = System.Drawing.Color.Red;
+            this.label32.Location = new System.Drawing.Point(195, 124);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(250, 13);
+            this.label32.TabIndex = 45;
+            this.label32.Text = "<-- this starts a timer to look for paths  mutliple times.";
+            // 
             // ToonControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1470,5 +1512,9 @@ namespace PathFinder
         /// The label26
         /// </summary>
         public System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button20;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
     }
 }
