@@ -47,6 +47,7 @@ namespace PathFinder
         {
             InitializeComponent();
             Character = new Character(mf.Logger, this, chars, api);
+
         }
 
         /// <summary>
@@ -303,6 +304,7 @@ namespace PathFinder
         /// </summary>
         /// <value><c>true</c> if [show MSG]; otherwise, <c>false</c>.</value>
         private bool ShowMsg { get; set; } = true;
+ 
 
         /// <summary>
         /// Handles the Tick event of the timer control.
@@ -313,31 +315,12 @@ namespace PathFinder
         {
             try
             {
+
                 NewString = Character.FFxiNAV.GetErrorMessage();
                 if (OldString != NewString)
                 {
                     Character.Logger.AddDebugText(this.rtbDebug, NewString);
                     OldString = Character.FFxiNAV.GetErrorMessage();
-                }
-                if (Character.FFxiNAV.Waypoints.Count > 0 && Character.Tasks.NavTask.IsBusy)
-                {
-                    var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
-                    NewMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
-                    if (OldMeshEdgeDistance != NewMeshEdgeDistance)
-                    {
-                        OldMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
-                        Character.Logger.AddDebugText(this.rtbDebug, string.Format(@"Player Distance from NavMesh Edge = {0}", OldMeshEdgeDistance.ToString()));
-                    }
-                }
-                if (Character.FFxiNAV.Waypoints.Count > 0 && Character.Tasks.RandomPathTask.IsBusy)
-                {
-                    var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
-                    NewMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
-                    if (OldMeshEdgeDistance != NewMeshEdgeDistance)
-                    {
-                        OldMeshEdgeDistance = Character.FFxiNAV.DistanceToWall(PlayerPos);
-                        Character.Logger.AddDebugText(this.rtbDebug, string.Format(@"Player Distance from NavMesh Edge = {0}", OldMeshEdgeDistance.ToString()));
-                    }
                 }
 
                 var path = string.Format(Application.StartupPath + "\\Dumped NavMeshes\\");
@@ -395,6 +378,7 @@ namespace PathFinder
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -1068,6 +1052,263 @@ namespace PathFinder
                 Character.Api.AutoFollow.IsAutoFollowing = false;
                 button20.Text = "Start looking for Random Paths";
             }
+        }
+
+
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private const int DEFAULT_SPEED = 100;
+        private const int FLEE_SPEED = 200;
+        private const int MAX_SPEED = 800;
+        private const int TRACKBAR_MULTIPLIER = 20;
+        private float Speed = 5;
+        private bool TrackBarChange = false;
+        const int DEFAULT_SPD_1 = 0x80;
+        const int DEFAULT_SPD_2 = 0x40;
+        const int FLEE_SPD_1 = 0xFF;
+        const int MAX_SPEED_1 = 0x00;
+        const int MAX_SPEED_2 = 0x42;
+        const int OVER_FLEE_SPEED_2 = 0x41;
+
+        private void hacktimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (!Character.Zoning())
+                {
+                    var PlayerID = (int)Character.Api.Party.GetPartyMember(0).TargetIndex;
+                    var LocalPlayer = Character.Api.Entity.GetLocalPlayer();
+                    if (Character.Tasks.NavTask.IsBusy)
+                    {
+                        //DateTime utcDate = new DateTime();
+                        //if (Character.Navi.IsStuck())
+                        //{
+                        //    uint WallHack = 2684371968; //A0004400
+                        //    LocalPlayer.Render0002 = WallHack;
+                        //    utcDate = DateTime.UtcNow;
+
+                        //}
+                        //if (utcDate.AddSeconds(5) > DateTime.UtcNow)
+                        //{
+                        //    uint GmFlag = 2684363776; //A0002400
+                        //    LocalPlayer.Render0002 = GmFlag;
+                        //}
+                    }
+                    if (Character.Tasks.RandomPathTask.IsBusy)
+                    {
+                        DateTime utcDate = new DateTime();
+                        if (Character.Navi.IsStuck())
+                        {
+                            uint WallHack = 2684371968; //A0004400
+                            LocalPlayer.Render0002 = WallHack;
+                            utcDate = DateTime.UtcNow;
+
+                        }
+                        if (utcDate.AddSeconds(5) > DateTime.UtcNow)
+                        {
+                            uint GmFlag = 2684363776; //A0002400
+                            LocalPlayer.Render0002 = GmFlag;
+                        }
+                    }
+
+
+                    if (chkEnableSpeed.Checked && LocalPlayer.Speed != Speed)
+                    {
+                        LocalPlayer.Speed = Speed;
+                        TrackBarChange = false;
+                    }
+                if (Ja0WaitOnRBtn.Checked)
+                    {
+                        LocalPlayer.ActionTimer1 = 0;
+                    }
+                    foreach (RadioButton btn in FlagGB.Controls)
+                    {
+                        if (btn != null && btn.Checked)
+                        {
+                            switch (btn.Name)
+                            {
+                                case "NormalRBtn":
+                                    //Don't need to set this, entity update packet will change it.
+                                    //uint Disabled = 1024;
+                                    //Character.Api.Entity.SetEntityRenderFlag02(Convert.ToInt32(PlayerID), Disabled);
+                                    break;
+
+                                case "GmRBtn":
+                                    uint GmFlag = 2684363776; //A0002400
+                                    LocalPlayer.Render0002 = GmFlag;
+
+                                    break;
+
+                                case "NoClipRBnt":
+                                    uint WallHack = 2684371968; //A0004400
+                                    LocalPlayer.Render0002 = WallHack;
+                                    break;
+
+                                default:
+
+                                    break;
+                            }
+                        }
+                    }
+                    foreach (RadioButton btn in StatusGB.Controls)
+                    {
+                        if (btn != null && btn.Checked)
+                        {
+                            switch (btn.Name)
+                            {
+                                case "RBNorm":
+                                    break;
+
+                                case "RBDead":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 2);
+                                    break;
+
+                                case "RBEvent":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 4);
+                                    break;
+
+                                case "RBChocobo":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 5);
+                                    break;
+
+                                case "RBHealing":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 33);
+                                    break;
+
+                                case "RBFighting":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 1);
+                                    break;
+
+                                case "RBFishing":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 50);
+                                    break;
+
+                                case "RBSitting":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 47);
+                                    break;
+
+                                case "RBSynthing":
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 44);
+                                    break;
+                                case "RBMaint": //status maintinance flag
+                                    Character.Api.Entity.SetEntityStatus(Convert.ToInt32(PlayerID), 28);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+                Thread.Sleep(10);
+            }
+            
+            catch (Exception ex)
+            {
+                Character.Logger.AddDebugText(rtbDebug, ex.ToString());
+
+            }
+        }
+        public void MiscCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MiscCB.Checked)
+            {
+                hacktimer.Enabled = true;
+            }
+            else
+                hacktimer.Enabled = false;
+        }
+
+        public void tBarSetSpeed_Scroll(object sender, EventArgs e)
+        {
+            TrackBarChange = true;
+            if (tBarSetSpeed.Value ==5)
+            {
+                textSetSpeed.Text = (0).ToString() + " %";
+                
+                Speed = 5f;
+            }
+            else if (tBarSetSpeed.Value  == 10)
+            {
+                textSetSpeed.Text = (12.5).ToString() + " %";
+                Speed = 5.625f;
+            }
+            else if (tBarSetSpeed.Value == 15)
+            {
+                textSetSpeed.Text = (25).ToString() + " %";
+                Speed = 6.25f;
+            }
+            else if (tBarSetSpeed.Value ==20)
+            {
+                textSetSpeed.Text = (37.50).ToString() + " %";
+                Speed = 6.875f;
+            }
+            else if (tBarSetSpeed.Value == 25 )
+            {
+                textSetSpeed.Text = (50).ToString() + " %";
+                Speed = 7.5f;
+            }
+            else if (tBarSetSpeed.Value == 30)
+            {
+                textSetSpeed.Text = (62.50).ToString() + " %";
+                Speed = 8.125f;
+            }
+            else if (tBarSetSpeed.Value == 35)
+            {
+                textSetSpeed.Text = (75).ToString() + " %";
+                Speed = 8.75f;
+            }
+            else if (tBarSetSpeed.Value == 40)
+            {
+                textSetSpeed.Text = (87.50).ToString() + " %";
+                Speed = 9.375f;
+            }
+            else if (tBarSetSpeed.Value > 40)
+            {
+                textSetSpeed.Text = (100).ToString() + " %";
+                Speed = 10f;
+            }
+
+        }
+
+        private void MiscCB_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (MiscCB.Checked)
+            {
+                hacktimer.Enabled = true;
+            }
+            else
+                hacktimer.Enabled = false;
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            var PlayerPosition = new position_t();
+
+            //this will enable the nearest poly to player position
+            if(Character.FFxiNAV.EnableOrDisableNearestPoly(PlayerPosition, true, false))
+            { 
+            Character.Logger.AddDebugText(rtbDebug, "Nearest Poly Enabled");
+        }
+            else Character.Logger.AddDebugText(rtbDebug, "Something went wrong trying to Enabled Nearest Poly");
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            var PlayerPosition = new position_t();
+
+            //this will enable the nearest poly to player position
+           if( Character.FFxiNAV.EnableOrDisableNearestPoly(PlayerPosition, false, false))
+            {
+                Character.Logger.AddDebugText(rtbDebug, "Nearest Poly Disabled");
+            }
+            else Character.Logger.AddDebugText(rtbDebug, "Something went wrong trying to Disable Nearest Poly");
         }
     }
 }

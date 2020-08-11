@@ -64,6 +64,9 @@ namespace PathFinder
             this.saveHitPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.button20 = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.TurnsTB = new System.Windows.Forms.TextBox();
@@ -128,12 +131,38 @@ namespace PathFinder
             this.button5 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.gBoxSpeed = new System.Windows.Forms.GroupBox();
+            this.textSetSpeed = new System.Windows.Forms.Label();
+            this.tBarSetSpeed = new System.Windows.Forms.TrackBar();
+            this.chkEnableSpeed = new System.Windows.Forms.CheckBox();
+            this.Ja0WaitGB = new System.Windows.Forms.GroupBox();
+            this.Ja0WaitOnRBtn = new System.Windows.Forms.CheckBox();
+            this.MiscCB = new System.Windows.Forms.CheckBox();
+            this.FlagGB = new System.Windows.Forms.GroupBox();
+            this.NormalRBtn = new System.Windows.Forms.RadioButton();
+            this.NoClipRBnt = new System.Windows.Forms.RadioButton();
+            this.GmRBtn = new System.Windows.Forms.RadioButton();
+            this.StatusGB = new System.Windows.Forms.GroupBox();
+            this.RBMaint = new System.Windows.Forms.RadioButton();
+            this.RBFighting = new System.Windows.Forms.RadioButton();
+            this.RBFishing = new System.Windows.Forms.RadioButton();
+            this.RBSitting = new System.Windows.Forms.RadioButton();
+            this.RBSynthing = new System.Windows.Forms.RadioButton();
+            this.RBHealing = new System.Windows.Forms.RadioButton();
+            this.RBNorm = new System.Windows.Forms.RadioButton();
+            this.RBChocobo = new System.Windows.Forms.RadioButton();
+            this.RBDead = new System.Windows.Forms.RadioButton();
+            this.RBEvent = new System.Windows.Forms.RadioButton();
+            this.RBStanding = new System.Windows.Forms.RadioButton();
             this.rtbDebug = new System.Windows.Forms.RichTextBox();
             this.DumpMeshes = new System.ComponentModel.BackgroundWorker();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button20 = new System.Windows.Forms.Button();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
+            this.hacktimer = new System.Windows.Forms.Timer(this.components);
+            this.button19 = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.button21 = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
             this.tabPage7.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -144,6 +173,12 @@ namespace PathFinder
             this.menuStrip2.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.gBoxSpeed.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tBarSetSpeed)).BeginInit();
+            this.Ja0WaitGB.SuspendLayout();
+            this.FlagGB.SuspendLayout();
+            this.StatusGB.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer
@@ -317,6 +352,7 @@ namespace PathFinder
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Controls.Add(this.tabPage2);
+            this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -344,6 +380,36 @@ namespace PathFinder
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "Random Path Test";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.ForeColor = System.Drawing.Color.Red;
+            this.label32.Location = new System.Drawing.Point(195, 124);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(250, 13);
+            this.label32.TabIndex = 45;
+            this.label32.Text = "<-- this starts a timer to look for paths  mutliple times.";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.ForeColor = System.Drawing.Color.Red;
+            this.label31.Location = new System.Drawing.Point(96, 95);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(179, 13);
+            this.label31.TabIndex = 44;
+            this.label31.Text = "<-- use this to look for 1 random path";
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(15, 119);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(174, 23);
+            this.button20.TabIndex = 43;
+            this.button20.Text = "Start looking for Random Paths";
+            this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // label25
             // 
@@ -429,6 +495,10 @@ namespace PathFinder
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label34);
+            this.tabPage4.Controls.Add(this.button21);
+            this.tabPage4.Controls.Add(this.label33);
+            this.tabPage4.Controls.Add(this.button19);
             this.tabPage4.Controls.Add(this.label26);
             this.tabPage4.Controls.Add(this.button8);
             this.tabPage4.Controls.Add(this.label30);
@@ -446,6 +516,7 @@ namespace PathFinder
             this.tabPage4.TabIndex = 8;
             this.tabPage4.Text = "Misc";
             this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // label26
             // 
@@ -1085,6 +1156,319 @@ namespace PathFinder
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.gBoxSpeed);
+            this.tabPage5.Controls.Add(this.Ja0WaitGB);
+            this.tabPage5.Controls.Add(this.MiscCB);
+            this.tabPage5.Controls.Add(this.FlagGB);
+            this.tabPage5.Controls.Add(this.StatusGB);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(792, 254);
+            this.tabPage5.TabIndex = 9;
+            this.tabPage5.Text = "Hax";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // gBoxSpeed
+            // 
+            this.gBoxSpeed.Controls.Add(this.textSetSpeed);
+            this.gBoxSpeed.Controls.Add(this.tBarSetSpeed);
+            this.gBoxSpeed.Controls.Add(this.chkEnableSpeed);
+            this.gBoxSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.gBoxSpeed.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.gBoxSpeed.Location = new System.Drawing.Point(342, 15);
+            this.gBoxSpeed.Name = "gBoxSpeed";
+            this.gBoxSpeed.Size = new System.Drawing.Size(160, 136);
+            this.gBoxSpeed.TabIndex = 17;
+            this.gBoxSpeed.TabStop = false;
+            this.gBoxSpeed.Text = "Speed";
+            // 
+            // textSetSpeed
+            // 
+            this.textSetSpeed.AutoSize = true;
+            this.textSetSpeed.Location = new System.Drawing.Point(9, 68);
+            this.textSetSpeed.Name = "textSetSpeed";
+            this.textSetSpeed.Size = new System.Drawing.Size(25, 15);
+            this.textSetSpeed.TabIndex = 3;
+            this.textSetSpeed.Text = "0%";
+            // 
+            // tBarSetSpeed
+            // 
+            this.tBarSetSpeed.BackColor = System.Drawing.Color.White;
+            this.tBarSetSpeed.Location = new System.Drawing.Point(6, 20);
+            this.tBarSetSpeed.Maximum = 45;
+            this.tBarSetSpeed.Name = "tBarSetSpeed";
+            this.tBarSetSpeed.Size = new System.Drawing.Size(142, 45);
+            this.tBarSetSpeed.SmallChange = 5;
+            this.tBarSetSpeed.TabIndex = 2;
+            this.tBarSetSpeed.Value = 1;
+            this.tBarSetSpeed.Scroll += new System.EventHandler(this.tBarSetSpeed_Scroll);
+            // 
+            // chkEnableSpeed
+            // 
+            this.chkEnableSpeed.AutoSize = true;
+            this.chkEnableSpeed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.chkEnableSpeed.ForeColor = System.Drawing.Color.Black;
+            this.chkEnableSpeed.Location = new System.Drawing.Point(9, 89);
+            this.chkEnableSpeed.Name = "chkEnableSpeed";
+            this.chkEnableSpeed.Size = new System.Drawing.Size(65, 19);
+            this.chkEnableSpeed.TabIndex = 0;
+            this.chkEnableSpeed.Text = "Enable";
+            this.chkEnableSpeed.UseVisualStyleBackColor = true;
+            // 
+            // Ja0WaitGB
+            // 
+            this.Ja0WaitGB.Controls.Add(this.Ja0WaitOnRBtn);
+            this.Ja0WaitGB.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.Ja0WaitGB.Location = new System.Drawing.Point(161, 96);
+            this.Ja0WaitGB.Name = "Ja0WaitGB";
+            this.Ja0WaitGB.Size = new System.Drawing.Size(160, 59);
+            this.Ja0WaitGB.TabIndex = 16;
+            this.Ja0WaitGB.TabStop = false;
+            this.Ja0WaitGB.Text = "Ja0Wait";
+            // 
+            // Ja0WaitOnRBtn
+            // 
+            this.Ja0WaitOnRBtn.AutoSize = true;
+            this.Ja0WaitOnRBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.Ja0WaitOnRBtn.ForeColor = System.Drawing.Color.Black;
+            this.Ja0WaitOnRBtn.Location = new System.Drawing.Point(9, 20);
+            this.Ja0WaitOnRBtn.Name = "Ja0WaitOnRBtn";
+            this.Ja0WaitOnRBtn.Size = new System.Drawing.Size(103, 19);
+            this.Ja0WaitOnRBtn.TabIndex = 3;
+            this.Ja0WaitOnRBtn.Text = "Ja0Wait on/off";
+            this.Ja0WaitOnRBtn.UseVisualStyleBackColor = true;
+            // 
+            // MiscCB
+            // 
+            this.MiscCB.AutoSize = true;
+            this.MiscCB.ForeColor = System.Drawing.Color.Red;
+            this.MiscCB.Location = new System.Drawing.Point(185, 210);
+            this.MiscCB.Name = "MiscCB";
+            this.MiscCB.Size = new System.Drawing.Size(160, 17);
+            this.MiscCB.TabIndex = 15;
+            this.MiscCB.Text = "Enable / Disable all this stuff";
+            this.MiscCB.UseVisualStyleBackColor = true;
+            this.MiscCB.CheckedChanged += new System.EventHandler(this.MiscCB_CheckedChanged_1);
+            // 
+            // FlagGB
+            // 
+            this.FlagGB.Controls.Add(this.NormalRBtn);
+            this.FlagGB.Controls.Add(this.NoClipRBnt);
+            this.FlagGB.Controls.Add(this.GmRBtn);
+            this.FlagGB.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.FlagGB.Location = new System.Drawing.Point(161, 15);
+            this.FlagGB.Name = "FlagGB";
+            this.FlagGB.Size = new System.Drawing.Size(84, 75);
+            this.FlagGB.TabIndex = 13;
+            this.FlagGB.TabStop = false;
+            this.FlagGB.Text = "Flag";
+            // 
+            // NormalRBtn
+            // 
+            this.NormalRBtn.AutoSize = true;
+            this.NormalRBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.NormalRBtn.ForeColor = System.Drawing.Color.Black;
+            this.NormalRBtn.Location = new System.Drawing.Point(3, 50);
+            this.NormalRBtn.Name = "NormalRBtn";
+            this.NormalRBtn.Size = new System.Drawing.Size(78, 17);
+            this.NormalRBtn.TabIndex = 4;
+            this.NormalRBtn.TabStop = true;
+            this.NormalRBtn.Text = "Normal";
+            this.NormalRBtn.UseVisualStyleBackColor = true;
+            // 
+            // NoClipRBnt
+            // 
+            this.NoClipRBnt.AutoSize = true;
+            this.NoClipRBnt.Dock = System.Windows.Forms.DockStyle.Top;
+            this.NoClipRBnt.ForeColor = System.Drawing.Color.Black;
+            this.NoClipRBnt.Location = new System.Drawing.Point(3, 33);
+            this.NoClipRBnt.Name = "NoClipRBnt";
+            this.NoClipRBnt.Size = new System.Drawing.Size(78, 17);
+            this.NoClipRBnt.TabIndex = 3;
+            this.NoClipRBnt.TabStop = true;
+            this.NoClipRBnt.Text = "NoClip";
+            this.NoClipRBnt.UseVisualStyleBackColor = true;
+            // 
+            // GmRBtn
+            // 
+            this.GmRBtn.AutoSize = true;
+            this.GmRBtn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GmRBtn.ForeColor = System.Drawing.Color.Black;
+            this.GmRBtn.Location = new System.Drawing.Point(3, 16);
+            this.GmRBtn.Name = "GmRBtn";
+            this.GmRBtn.Size = new System.Drawing.Size(78, 17);
+            this.GmRBtn.TabIndex = 0;
+            this.GmRBtn.TabStop = true;
+            this.GmRBtn.Text = "Gm";
+            this.GmRBtn.UseVisualStyleBackColor = true;
+            // 
+            // StatusGB
+            // 
+            this.StatusGB.Controls.Add(this.RBMaint);
+            this.StatusGB.Controls.Add(this.RBFighting);
+            this.StatusGB.Controls.Add(this.RBFishing);
+            this.StatusGB.Controls.Add(this.RBSitting);
+            this.StatusGB.Controls.Add(this.RBSynthing);
+            this.StatusGB.Controls.Add(this.RBHealing);
+            this.StatusGB.Controls.Add(this.RBNorm);
+            this.StatusGB.Controls.Add(this.RBChocobo);
+            this.StatusGB.Controls.Add(this.RBDead);
+            this.StatusGB.Controls.Add(this.RBEvent);
+            this.StatusGB.Controls.Add(this.RBStanding);
+            this.StatusGB.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.StatusGB.Location = new System.Drawing.Point(15, 15);
+            this.StatusGB.Name = "StatusGB";
+            this.StatusGB.Size = new System.Drawing.Size(140, 212);
+            this.StatusGB.TabIndex = 12;
+            this.StatusGB.TabStop = false;
+            this.StatusGB.Text = "StatusEdit";
+            // 
+            // RBMaint
+            // 
+            this.RBMaint.AutoSize = true;
+            this.RBMaint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBMaint.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RBMaint.ForeColor = System.Drawing.Color.Black;
+            this.RBMaint.Location = new System.Drawing.Point(3, 186);
+            this.RBMaint.Name = "RBMaint";
+            this.RBMaint.Size = new System.Drawing.Size(134, 17);
+            this.RBMaint.TabIndex = 10;
+            this.RBMaint.Text = "Maintenance";
+            this.RBMaint.UseVisualStyleBackColor = true;
+            // 
+            // RBFighting
+            // 
+            this.RBFighting.AutoSize = true;
+            this.RBFighting.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBFighting.ForeColor = System.Drawing.Color.Black;
+            this.RBFighting.Location = new System.Drawing.Point(3, 169);
+            this.RBFighting.Name = "RBFighting";
+            this.RBFighting.Size = new System.Drawing.Size(134, 17);
+            this.RBFighting.TabIndex = 9;
+            this.RBFighting.TabStop = true;
+            this.RBFighting.Text = "Fighting";
+            this.RBFighting.UseVisualStyleBackColor = true;
+            // 
+            // RBFishing
+            // 
+            this.RBFishing.AutoSize = true;
+            this.RBFishing.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBFishing.ForeColor = System.Drawing.Color.Black;
+            this.RBFishing.Location = new System.Drawing.Point(3, 152);
+            this.RBFishing.Name = "RBFishing";
+            this.RBFishing.Size = new System.Drawing.Size(134, 17);
+            this.RBFishing.TabIndex = 8;
+            this.RBFishing.TabStop = true;
+            this.RBFishing.Text = "Fishing";
+            this.RBFishing.UseVisualStyleBackColor = true;
+            // 
+            // RBSitting
+            // 
+            this.RBSitting.AutoSize = true;
+            this.RBSitting.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBSitting.ForeColor = System.Drawing.Color.Black;
+            this.RBSitting.Location = new System.Drawing.Point(3, 135);
+            this.RBSitting.Name = "RBSitting";
+            this.RBSitting.Size = new System.Drawing.Size(134, 17);
+            this.RBSitting.TabIndex = 7;
+            this.RBSitting.TabStop = true;
+            this.RBSitting.Text = "Sitting";
+            this.RBSitting.UseVisualStyleBackColor = true;
+            // 
+            // RBSynthing
+            // 
+            this.RBSynthing.AutoSize = true;
+            this.RBSynthing.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBSynthing.ForeColor = System.Drawing.Color.Black;
+            this.RBSynthing.Location = new System.Drawing.Point(3, 118);
+            this.RBSynthing.Name = "RBSynthing";
+            this.RBSynthing.Size = new System.Drawing.Size(134, 17);
+            this.RBSynthing.TabIndex = 6;
+            this.RBSynthing.TabStop = true;
+            this.RBSynthing.Text = "Synthing";
+            this.RBSynthing.UseVisualStyleBackColor = true;
+            // 
+            // RBHealing
+            // 
+            this.RBHealing.AutoSize = true;
+            this.RBHealing.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBHealing.ForeColor = System.Drawing.Color.Black;
+            this.RBHealing.Location = new System.Drawing.Point(3, 101);
+            this.RBHealing.Name = "RBHealing";
+            this.RBHealing.Size = new System.Drawing.Size(134, 17);
+            this.RBHealing.TabIndex = 5;
+            this.RBHealing.TabStop = true;
+            this.RBHealing.Text = "Healing";
+            this.RBHealing.UseVisualStyleBackColor = true;
+            // 
+            // RBNorm
+            // 
+            this.RBNorm.AutoSize = true;
+            this.RBNorm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBNorm.ForeColor = System.Drawing.Color.Black;
+            this.RBNorm.Location = new System.Drawing.Point(3, 84);
+            this.RBNorm.Name = "RBNorm";
+            this.RBNorm.Size = new System.Drawing.Size(134, 17);
+            this.RBNorm.TabIndex = 4;
+            this.RBNorm.TabStop = true;
+            this.RBNorm.Text = "Idle";
+            this.RBNorm.UseVisualStyleBackColor = true;
+            // 
+            // RBChocobo
+            // 
+            this.RBChocobo.AutoSize = true;
+            this.RBChocobo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBChocobo.ForeColor = System.Drawing.Color.Black;
+            this.RBChocobo.Location = new System.Drawing.Point(3, 67);
+            this.RBChocobo.Name = "RBChocobo";
+            this.RBChocobo.Size = new System.Drawing.Size(134, 17);
+            this.RBChocobo.TabIndex = 3;
+            this.RBChocobo.TabStop = true;
+            this.RBChocobo.Text = "OnChocobo";
+            this.RBChocobo.UseVisualStyleBackColor = true;
+            // 
+            // RBDead
+            // 
+            this.RBDead.AutoSize = true;
+            this.RBDead.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBDead.ForeColor = System.Drawing.Color.Black;
+            this.RBDead.Location = new System.Drawing.Point(3, 50);
+            this.RBDead.Name = "RBDead";
+            this.RBDead.Size = new System.Drawing.Size(134, 17);
+            this.RBDead.TabIndex = 2;
+            this.RBDead.TabStop = true;
+            this.RBDead.Text = "Dead";
+            this.RBDead.UseVisualStyleBackColor = true;
+            // 
+            // RBEvent
+            // 
+            this.RBEvent.AutoSize = true;
+            this.RBEvent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBEvent.ForeColor = System.Drawing.Color.Black;
+            this.RBEvent.Location = new System.Drawing.Point(3, 33);
+            this.RBEvent.Name = "RBEvent";
+            this.RBEvent.Size = new System.Drawing.Size(134, 17);
+            this.RBEvent.TabIndex = 1;
+            this.RBEvent.TabStop = true;
+            this.RBEvent.Text = "Event";
+            this.RBEvent.UseVisualStyleBackColor = true;
+            // 
+            // RBStanding
+            // 
+            this.RBStanding.AutoSize = true;
+            this.RBStanding.Dock = System.Windows.Forms.DockStyle.Top;
+            this.RBStanding.ForeColor = System.Drawing.Color.Black;
+            this.RBStanding.Location = new System.Drawing.Point(3, 16);
+            this.RBStanding.Name = "RBStanding";
+            this.RBStanding.Size = new System.Drawing.Size(134, 17);
+            this.RBStanding.TabIndex = 0;
+            this.RBStanding.TabStop = true;
+            this.RBStanding.Text = "Standing";
+            this.RBStanding.UseVisualStyleBackColor = true;
+            // 
             // rtbDebug
             // 
             this.rtbDebug.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
@@ -1111,35 +1495,47 @@ namespace PathFinder
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button20
+            // hacktimer
             // 
-            this.button20.Location = new System.Drawing.Point(15, 119);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(174, 23);
-            this.button20.TabIndex = 43;
-            this.button20.Text = "Start looking for Random Paths";
-            this.button20.UseVisualStyleBackColor = true;
-            this.button20.Click += new System.EventHandler(this.button20_Click);
+            this.hacktimer.Tick += new System.EventHandler(this.hacktimer_Tick);
             // 
-            // label31
+            // button19
             // 
-            this.label31.AutoSize = true;
-            this.label31.ForeColor = System.Drawing.Color.Red;
-            this.label31.Location = new System.Drawing.Point(96, 95);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(179, 13);
-            this.label31.TabIndex = 44;
-            this.label31.Text = "<-- use this to look for 1 random path";
+            this.button19.Location = new System.Drawing.Point(7, 165);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(150, 25);
+            this.button19.TabIndex = 49;
+            this.button19.Text = "Enable NearestPoly";
+            this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
-            // label32
+            // label33
             // 
-            this.label32.AutoSize = true;
-            this.label32.ForeColor = System.Drawing.Color.Red;
-            this.label32.Location = new System.Drawing.Point(195, 124);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(250, 13);
-            this.label32.TabIndex = 45;
-            this.label32.Text = "<-- this starts a timer to look for paths  mutliple times.";
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(172, 177);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(176, 13);
+            this.label33.TabIndex = 50;
+            this.label33.Text = "<- Click to test Enable  Nearest Poly";
+            // 
+            // button21
+            // 
+            this.button21.Location = new System.Drawing.Point(8, 196);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(150, 25);
+            this.button21.TabIndex = 51;
+            this.button21.Text = "Disable NearestPoly";
+            this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(172, 202);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(178, 13);
+            this.label34.TabIndex = 52;
+            this.label34.Text = "<- Click to test Disable  Nearest Poly";
             // 
             // ToonControl
             // 
@@ -1167,6 +1563,17 @@ namespace PathFinder
             this.tabPage2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.gBoxSpeed.ResumeLayout(false);
+            this.gBoxSpeed.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tBarSetSpeed)).EndInit();
+            this.Ja0WaitGB.ResumeLayout(false);
+            this.Ja0WaitGB.PerformLayout();
+            this.FlagGB.ResumeLayout(false);
+            this.FlagGB.PerformLayout();
+            this.StatusGB.ResumeLayout(false);
+            this.StatusGB.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1516,5 +1923,34 @@ namespace PathFinder
         private System.Windows.Forms.Button button20;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TabPage tabPage5;
+        public System.Windows.Forms.GroupBox StatusGB;
+        public System.Windows.Forms.RadioButton RBFighting;
+        public System.Windows.Forms.RadioButton RBFishing;
+        public System.Windows.Forms.RadioButton RBSitting;
+        public System.Windows.Forms.RadioButton RBSynthing;
+        public System.Windows.Forms.RadioButton RBHealing;
+        public System.Windows.Forms.RadioButton RBNorm;
+        public System.Windows.Forms.RadioButton RBChocobo;
+        public System.Windows.Forms.RadioButton RBDead;
+        public System.Windows.Forms.RadioButton RBEvent;
+        public System.Windows.Forms.RadioButton RBStanding;
+        private System.Windows.Forms.RadioButton RBMaint;
+        public System.Windows.Forms.GroupBox FlagGB;
+        public System.Windows.Forms.RadioButton NormalRBtn;
+        public System.Windows.Forms.RadioButton NoClipRBnt;
+        public System.Windows.Forms.RadioButton GmRBtn;
+        private System.Windows.Forms.Timer hacktimer;
+        public System.Windows.Forms.CheckBox MiscCB;
+        public System.Windows.Forms.GroupBox Ja0WaitGB;
+        public System.Windows.Forms.CheckBox Ja0WaitOnRBtn;
+        public System.Windows.Forms.GroupBox gBoxSpeed;
+        public System.Windows.Forms.Label textSetSpeed;
+        public System.Windows.Forms.TrackBar tBarSetSpeed;
+        public System.Windows.Forms.CheckBox chkEnableSpeed;
+        public System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button button19;
+        public System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button button21;
     }
 }

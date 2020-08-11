@@ -103,7 +103,7 @@ namespace PathFinder.Tasks.Random
                 return;
             }
             TS.Start();
-            Engine.Start(4);
+            Engine.Start(2);
             Started(this, EventArgs.Empty);
             Log.AddDebugText(TC.rtbDebug, "Started");
         }

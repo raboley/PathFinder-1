@@ -70,6 +70,8 @@ namespace PathFinder.Tasks.Nav.States
                 }
                 if (Character.FFxiNAV.PathCount() > 0)
                 {
+                    Character.Logger.AddDebugText(Character.Tc.rtbDebug, string.Format(@"Path found, wp count  ={0}", Character.FFxiNAV.PathCount().ToString()));
+
                     Character.FFxiNAV.GetWaypoints();
                 }
                 return Enabled
@@ -128,7 +130,6 @@ namespace PathFinder.Tasks.Nav.States
             {
                 if (Character.FFxiNAV.Waypoints.Count > 0)
                 {
-                    Character.Logger.AddDebugText(Character.Tc.rtbDebug, string.Format(@"Path found, wp count  ={0}", Character.FFxiNAV.PathCount().ToString()));
                     for (var i = 0; i < Character.FFxiNAV.Waypoints.Count;)
                     {
                         position_t Point = new position_t { X = Character.FFxiNAV.Waypoints[i].X, Y = Character.FFxiNAV.Waypoints[i].Y, Z = Character.FFxiNAV.Waypoints[i].Z };
@@ -144,15 +145,15 @@ namespace PathFinder.Tasks.Nav.States
                                 Old = string.Format(@"Pathing to x {0}, z {1}",
                                  Point.X.ToString(), Point.Z.ToString());
                                 var PlayerPosi = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
-                                double Walldistance = Character.FFxiNAV.DistanceToWall(Point);
-                                Character.Logger.AddDebugText(Character.Tc.rtbDebug, string.Format(@"Pathing to x {0}, z {1}, Distance {2}y, Can We see next Point? = {3}, Point Distance to Mesh Edge {4}",
-                                Point.X.ToString(), Point.Z.ToString(), Distance.ToString(), Character.FFxiNAV.CanWeSeeDestination(PlayerPosi, Point), Walldistance.ToString()));
+                             
+                                Character.Logger.AddDebugText(Character.Tc.rtbDebug, string.Format(@"Pathing to x {0}, z {1}, Distance {2}y, Can We see next Point? = {3}",
+                                Point.X.ToString(), Point.Z.ToString(), Distance.ToString(), Character.FFxiNAV.CanWeSeeDestination(PlayerPosi, Point)));
                             }
                         }
                         var PlayerPos = new position_t { X = Character.Api.Player.X, Y = Character.Api.Player.Y, Z = Character.Api.Player.Z, Moving = 0, Rotation = 0 };
                         bool test = Character.FFxiNAV.CanWeSeeDestination(PlayerPos, Point);
                         double WallDistance = Character.FFxiNAV.DistanceToWall(Point);
-                        if (Distance < 0.5 && Character.FFxiNAV.CanWeSeeDestination(PlayerPos, Point))
+                        if (Distance < 1 && Character.FFxiNAV.CanWeSeeDestination(PlayerPos, Point))
                         {
                             Character.Logger.AddDebugText(Character.Tc.rtbDebug, string.Format(@"Here..Can we see next point  = {0}, Point Distance to Mesh Edge {1}", test.ToString(), WallDistance.ToString()));
 

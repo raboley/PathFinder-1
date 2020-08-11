@@ -184,7 +184,7 @@ namespace PathFinder.Tasks
                 }
 
                 // Time we need to sleep to get our desired pulses per second.
-                int sleepTime = 1000 / pulsesPerSecond;
+                int sleepTime = 200 / pulsesPerSecond;
 
                 // Start our thread
                 _workerThread.RunWorkerAsync(sleepTime);

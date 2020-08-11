@@ -266,6 +266,12 @@ namespace PathFinder.Common
         [return: MarshalAs(UnmanagedType.I1)]
         public static unsafe extern bool ReleaseItems(IntPtr pFFXINavClassObject, ItemsSafeHandle itemsHandle);
 
+
+        [DllImport("FFXINAV.dll", EntryPoint = "EnableNearestPoly", CharSet = CharSet.Auto, CallingConvention = CallingConvention.Cdecl, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool EnableNearestPoly(IntPtr pFFXINavClassObject, position_t Pos, bool Enable, bool UseCustomMesh);
+
+  
         /// <summary>
         /// Gets the way points wrapper.
         /// </summary>
@@ -557,11 +563,11 @@ namespace PathFinder.Common
                     {
                         var position = new position_t { X = (float)xitems[i], Z = (float)zitems[i] };
                         Waypoints.Add(position);
+                        
                     }
                 }
             }
         }
-
         /// <summary>
         /// Changes the nav mesh settings.
         /// </summary>
@@ -629,6 +635,17 @@ namespace PathFinder.Common
         public sbyte Getrotation(position_t start, position_t end)
         {
             return GetRotation(this.m_pNativeObject, start, end);
+        }
+        /// <summary>
+        /// Enables the or disable nearest poly.
+        /// </summary>
+        /// <param name="Pos">The position.</param>
+        /// <param name="Enable">if set to <c>true</c> [enable].</param>
+        /// <param name="UseCustom">if set to <c>true</c> to use meshes made with noesis data [use custom].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> Always Set to false if using my meshes </returns>
+      public bool EnableOrDisableNearestPoly(position_t Pos,bool Enable, bool UseCustom)
+        {
+            return EnableNearestPoly(this.m_pNativeObject, Pos, Enable, UseCustom);
         }
     }
 }

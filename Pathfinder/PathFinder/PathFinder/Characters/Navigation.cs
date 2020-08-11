@@ -13,6 +13,7 @@
 using PathFinder.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 
 namespace PathFinder.Characters
@@ -286,7 +287,7 @@ namespace PathFinder.Characters
         {
             var firstX = Character.Api.Player.X;
             var firstZ = Character.Api.Player.Z;
-            Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            Thread.Sleep(TimeSpan.FromMilliseconds(500));
             var dchange = Math.Pow(firstX - Character.Api.Player.X, 2) + Math.Pow(firstZ - Character.Api.Player.Z, 2);
             return Math.Abs(dchange) < 1;
         }
@@ -345,6 +346,7 @@ namespace PathFinder.Characters
                 // FaceHeading(TargetPosition);
                 Character.Api.AutoFollow.SetAutoFollowCoords(goToX, 0, goToZ);
                 Character.Api.AutoFollow.IsAutoFollowing = true;
+
             }
         }
 
