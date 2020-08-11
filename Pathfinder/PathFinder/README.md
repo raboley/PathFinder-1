@@ -43,17 +43,18 @@ Development has slowed, and mostly happens on the my days off.
 * PathPoints
 * NavMeshSettings //Lets you change the NavMesh settings before building a new mesh
 * GetWaypoints //returns the waypoints in the path
+* EnableNearestPoly 
 
 ### navmesh settings all meshes are dumped with.
 
 
-    float m_tileSize = 64;         <<<< this can be changed for small zones.
+        float m_tileSize = 64;         <<<< this can be changed for small zones.
 	float m_cellSize = 0.20f;
 	float m_cellHeight = 0.010f;
 	float m_agentHeight = 1.8f;    
 	float m_agentRadius = 0.7f;     <<<< if you make this too big it will break the mesh. 0.7f has been tested on most zones.
 	float m_agentMaxClimb = 0.5f;   <<<< this might need changing for some zones. max climb changes from 0.3f to 0.5f, trial and error
-	float m_agentMaxSlope = 46.0f;
+	float m_agentMaxSlope = 45.0f;
 	float m_regionMinSize = 8;
 	float m_regionMergeSize = 20;
 	float m_edgeMaxLen = 12.0f;
